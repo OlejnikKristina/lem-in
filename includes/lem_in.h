@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/19 17:17:58 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/19 22:21:51 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct			s_adjvertex
 
 typedef struct			s_vertex
 {
+	int					id;
 	char				*name;
 	struct s_vertex		*next;
 	struct s_adjvertex	**adj_vertexes;
@@ -61,10 +62,18 @@ typedef struct			s_graph
 	int					n_ants;
 	int					n_vertexes;
 	int					n_edges;
-	t_vertex			*all_vertexes;
+	t_vertex			*top_vertex;
 }						t_graph;
 
-void					error_generated(int error_num);
-bool					ft_only_numbers(char *str);
+
 bool					creat_graph(t_graph *graph);
+
+/*
+** ********************** Addtional functions ********************************
+*/
+
+void					error_generated(int error_num);
+bool					is_only_numbers(char *str);
+bool					is_only_space_num(char *str);
+
 #endif
