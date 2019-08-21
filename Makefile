@@ -6,13 +6,13 @@
 #    By: krioliin <krioliin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/18 20:29:00 by krioliin       #+#    #+#                 #
-#    Updated: 2019/08/19 14:33:03 by krioliin      ########   odam.nl          #
+#    Updated: 2019/08/21 17:11:52 by krioliin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= lem-in
 SRC			= main.c errors_management.c ft_only_numbers.c \
-			creators.c
+			creators.c get_ants_amount.c
 
 all: $(NAME)
 

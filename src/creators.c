@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 16:55:39 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 17:13:41 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 		{
 			//Stop program executing. Free graph
 			error_generated(3);
-			return (-1);
+			return (NULL);
 		}
 	}
 	else
@@ -79,6 +79,7 @@ void	end_start_comment(char **line, t_graph *g)
 {
 	char		start_end_comment;
 	bool static	start_vertix;
+	char		*name;
 
 	start_end_comment = '\0';
 	if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
@@ -87,22 +88,17 @@ void	end_start_comment(char **line, t_graph *g)
 			error_generated(5);										//Stop program executing. Free g
 		start_end_comment = (*line)[2];
 	}
-	else
-		start_end_comment = 'c';
 	ft_strdel(line);
 	get_next_line(0, line);
-	if (start_end_comment == 'c')
-	{
-		ft_strdel(line);
-		return ;
-	}
+	name = get_vertex_name(line);
 	if (start_end_comment == 's')
 	{
-		g->top_vertex = graph_insert_first_vertex(g, line);
+		g->top_vertex = graph_insert_first_vertex(g, name);
 		start_vertix = true;
 	}
-	else
-		g->end_vertex = graph_insert_vertex(g, line);
+	else if (start_end_comment == 'e')
+		g->end_vertex = graph_insert_vertex(g, name);
+	ft_strdel(&name);
 }
 
 /*
@@ -116,7 +112,7 @@ bool	stop_reading_vertexes(char *line)
 	int		space;
 
 	space = findchr(line, ' ');
-	if ((space != -1 && findchr(&line[space + 1], ' ')) != -1 || line[0] == '#')
+	if ((space != -1 && findchr(&line[space + 1], ' ') != -1) || line[0] == '#')
 		return (false);
 	return (true);
 }
@@ -142,6 +138,7 @@ char	*add_vertexes(t_graph *graph)
 			vertex_name = get_vertex_name(&line);
 			graph_insert_vertex(graph, vertex_name);
 		}
+		ft_strdel(&line);
 		get_next_line(0, &line);
 	}
 	return (line);
@@ -154,6 +151,6 @@ bool	create_graph(t_graph *graph)
 	graph->end_vertex = NULL;
 	ft_bzero(graph, sizeof(graph));
 	graph->n_ants = get_ants_amount();
-	add_vertexes(graph);
+	vertex_conection = add_vertexes(graph);
 	return (true);
 }
