@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 14:46:45 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 16:36:24 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 ** rooms ③ and ⑤
 */
 
-enum					e_colors
-{
-						white, 
-						gray, 
-						black
-};
+// enum					e_colors
+// {
+// 						white, 
+// 						gray, 
+// 						black
+// };
 
 typedef struct			s_adjvertex
 {
@@ -50,7 +50,6 @@ typedef struct			s_adjvertex
 
 typedef struct			s_vertex
 {
-	int					id;
 	char				*name;
 	struct s_vertex		*next;
 	struct s_adjvertex	**adj_vertexes;
@@ -59,21 +58,20 @@ typedef struct			s_vertex
 
 typedef struct			s_graph
 {
-	char				*start_vertex;
-	char				*end_vertex;
 	int					n_ants;
 	int					n_vertexes;
 	int					n_edges;
 	t_vertex			*top_vertex;
+	t_vertex			*end_vertex;
 }						t_graph;
 
-void					save_input_get_info(t_graph *graph);
+
 bool					create_graph(t_graph *graph);
 
 /*
 ** ********************** Addtional functions ********************************
 */
-
+int						get_ants_amount();
 void					error_generated(int error_num);
 bool					is_only_numbers(char *str);
 bool					is_only_space_num(char *str);

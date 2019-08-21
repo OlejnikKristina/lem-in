@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   errors_management.c                                :+:    :+:            */
+/*   get_ants_amount.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/08/18 22:51:07 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 16:10:14 by krioliin      ########   odam.nl         */
+/*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
+/*   Updated: 2019/08/21 16:08:10 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	error_generated(int error)
+int		get_ants_amount()
 {
-	ft_putstr_fd("Error ", 2);
-	if ((error == 1 && ft_putstr_fd("Fail reading a file ", 2)) ||
-		(error == 2 && ft_putstr_fd(". First line, amount of ants, \
-		should be a number", 2)) ||
-		/*Free top vertex*/
-		(error == 4 && ft_putstr_fd("in ant's farm description", 2)) ||
-		(error == 5 && ft_putstr_fd("there can be only two ##start\
-		##end properties", 2)))
-		perror("\n");
-	exit(0);
+	char	*line;
+	int		ants_amount;
+
+	if (get_next_line(0, &line) == -1 || line[0] == '\0')
+		error_generated(1);
+	ants_amount = ft_atoi(line);
+	if (!is_only_numbers(line) || ants_amount <= 0)
+		error_generated(2);
+	printf("%d\n", ants_amount);
+	ft_strdel(&line);
+	return (ants_amount);
 }

@@ -6,26 +6,11 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 15:56:04 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 16:55:39 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int		get_ants_amount()
-{
-	char	*line;
-	int		ants_amount;
-
-	if (get_next_line(0, &line) == -1 || line[0] == '\0')
-		error_generated(1);
-	ants_amount = ft_atoi(line);
-	if (!is_only_numbers(line) || ants_amount <= 0)
-		error_generated(2);
-	printf("%d\n", ants_amount);
-	ft_strdel(&line);
-	return (ants_amount);
-}
 
 t_vertex	*create_vertex(char *name)
 {
@@ -39,7 +24,17 @@ t_vertex	*create_vertex(char *name)
 	return (new_vertex);
 }
 
-short	graph_insert_vertex(t_graph *graph, char *name)
+t_vertex	*graph_insert_first_vertex(t_graph *graph, char *name)
+{
+	t_vertex	*new_top_vertex;
+
+	new_top_vertex = create_vertex(name);
+	new_top_vertex->next = graph->top_vertex;
+	graph->top_vertex = new_top_vertex;
+	return (new_top_vertex);
+}
+
+t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 {
 	t_vertex	*current;
 
@@ -61,6 +56,7 @@ short	graph_insert_vertex(t_graph *graph, char *name)
 		current->next = create_vertex(name);
 	}
 	graph->n_vertexes++;
+	return (current->next);
 }
 
 char	*get_vertex_name(char **line)
@@ -79,15 +75,16 @@ char	*get_vertex_name(char **line)
 	return (name);
 }
 
-char	*end_start_comment(char **line, char **start_vertex, char **end_vertex)
+void	end_start_comment(char **line, t_graph *g)
 {
-	char	start_end_comment;
+	char		start_end_comment;
+	bool static	start_vertix;
 
 	start_end_comment = '\0';
 	if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
 	{
-		if (*start_vertex || *end_vertex)
-			error_generated(5);										//Stop program executing. Free graph
+		if (start_vertix || g->end_vertex)
+			error_generated(5);										//Stop program executing. Free g
 		start_end_comment = (*line)[2];
 	}
 	else
@@ -97,15 +94,15 @@ char	*end_start_comment(char **line, char **start_vertex, char **end_vertex)
 	if (start_end_comment == 'c')
 	{
 		ft_strdel(line);
-		return (NULL);
+		return ;
 	}
 	if (start_end_comment == 's')
-		*start_vertex = get_vertex_name(line);
+	{
+		g->top_vertex = graph_insert_first_vertex(g, line);
+		start_vertix = true;
+	}
 	else
-		*end_vertex = get_vertex_name(line);
-	if (*start_vertex || *end_vertex)
-		error_generated(4);											//Stop program executing. Free graph
-	return ((*start_vertex) ? *start_vertex : *end_vertex);
+		g->end_vertex = graph_insert_vertex(g, line);
 }
 
 /*
@@ -130,35 +127,33 @@ bool	stop_reading_vertexes(char *line)
 **	regular room. Extract name of it. Add it as a new vertex to a graph
 */
 
-char	*add_vertexes(t_graph *graph, char **start_vertex, char **end_vertex)
+char	*add_vertexes(t_graph *graph)
 {
-	// char	*all_vrtxs_names;
 	char	*line;
 	char	*vertex_name;
 
 	get_next_line(0, &line);
-	while (stop_reading_vertexes(line))
+	while (!stop_reading_vertexes(line))
 	{
 		if (line[0] == '#')
-			vertex_name = end_start_comment(&line, graph->start_vertex, graph->end_vertex);
+			end_start_comment(&line, graph);
 		else
+		{
 			vertex_name = get_vertex_name(&line);
-		if (vertex_name)
 			graph_insert_vertex(graph, vertex_name);
+		}
+		get_next_line(0, &line);
 	}
-	return (true);
+	return (line);
 }
 
 bool	create_graph(t_graph *graph)
 {
 	char		*vertex_conection;
-	char		*start_vertex;
-	char		*end_vertex;
 
-	start_vertex = NULL;
-	end_vertex = NULL;
+	graph->end_vertex = NULL;
 	ft_bzero(graph, sizeof(graph));
 	graph->n_ants = get_ants_amount();
-	add_vertexes(graph, &start_vertex, &end_vertex);
+	add_vertexes(graph);
 	return (true);
 }
