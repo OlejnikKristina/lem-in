@@ -6,11 +6,27 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 19:14:45 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 21:11:38 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+char	*get_vertex_name(char **line, t_graph *graph)
+{
+	char	*name;
+	int		name_len;
+
+	name_len = findchr(*line, ' ');
+	if (name_len == -1 || (*line[0] == 'L'))
+	{
+		ft_strdel(line);
+		error_generated(4, graph);
+		return (NULL);
+	}
+	name = ft_strsub(*line, 0, name_len);
+	return (name);
+}
 
 t_vertex	*create_vertex(char *name)
 {
@@ -24,16 +40,6 @@ t_vertex	*create_vertex(char *name)
 	return (new_vertex);
 }
 
-t_vertex	*graph_insert_first_vertex(t_graph *graph, char *name)
-{
-	t_vertex	*new_top_vertex;
-
-	new_top_vertex = create_vertex(name);
-	new_top_vertex->next = graph->top_vertex;
-	graph->top_vertex = new_top_vertex;
-	return (new_top_vertex);
-}
-
 t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 {
 	t_vertex	*current;
@@ -45,8 +51,7 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 		current = graph->top_vertex;
 		if (!graph->top_vertex)
 		{
-			//Stop program executing. Free graph
-			error_generated(3);
+			error_generated(3, graph);
 			return (NULL);
 		}
 	}
@@ -58,64 +63,6 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 	}
 	graph->n_vertexes++;
 	return (current->next);
-}
-
-char	*get_vertex_name(char **line)
-{
-	char	*name;
-	int		name_len;
-
-	name_len = findchr(*line, ' ');
-	if (name_len == -1 || (*line[0] == 'L'))
-	{
-		ft_strdel(line);											// Free top vertex
-		error_generated(4);											// You can send here line whith error
-		return (NULL);
-	}
-	name = ft_strsub(*line, 0, name_len);
-	return (name);
-}
-
-void	end_start_comment(char **line, t_graph *g)
-{
-	char		start_end_comment;
-	bool static	start_vertix;
-	char		*name;
-
-	start_end_comment = '\0';
-	if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
-	{
-		if (start_vertix && g->end_vertex)
-			error_generated(5);										//Stop program executing. Free g
-		start_end_comment = (*line)[2];
-	}
-	ft_strdel(line);
-	get_next_line(0, line);
-	name = get_vertex_name(line);
-	if (start_end_comment == 's')
-	{
-		g->top_vertex = graph_insert_first_vertex(g, name);
-		start_vertix = true;
-	}
-	else if (start_end_comment == 'e')
-		g->end_vertex = graph_insert_vertex(g, name);
-	ft_strdel(&name);
-}
-
-/*
-**	[stop_reading_vertexes]
-**	Check if we still reading data about room/room's name
-**	Either reached data regarding rooms conections
-*/
-
-bool	stop_reading_vertexes(char *line)
-{
-	int		space;
-
-	space = findchr(line, ' ');
-	if ((space != -1 && findchr(&line[space + 1], ' ') != -1) || line[0] == '#')
-		return (false);
-	return (true);
 }
 
 /*
@@ -136,7 +83,7 @@ char	*add_vertexes(t_graph *graph)
 			end_start_comment(&line, graph);
 		else
 		{
-			vertex_name = get_vertex_name(&line);
+			vertex_name = get_vertex_name(&line, graph);
 			graph_insert_vertex(graph, vertex_name);
 		}
 		ft_strdel(&line);

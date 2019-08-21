@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 19:23:45 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 21:12:37 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 # define vertex_num graph->n_vertexes
 
-//typedef enum {false, true} bool; 
 /*
 ** Adjacency rooms are a linked list
 ** of rooms (vertices) which adjacency to 
@@ -40,11 +39,11 @@
 // 						black
 // };
 
-typedef struct			s_vertex;
+struct					t_vertex;
 
 typedef struct			s_adjvertex
 {
-	t_vertex			*vertex;
+	struct t_vertex			*vertex;
 	struct s_adjvertex	*next;
 
 }						t_adjvertex;
@@ -67,14 +66,26 @@ typedef struct			s_graph
 	t_vertex			*end_vertex;
 }						t_graph;
 
+/*
+** ************************** Handle graph **********************************
+*/
 
 bool					create_graph(t_graph *graph);
 void					free_graph(t_graph *graph);
+char					*get_vertex_name(char **line, t_graph *graph);
+t_vertex				*create_vertex(char *name);
+t_vertex				*graph_insert_first_vertex(t_graph *graph, char *name);
+t_vertex				*graph_insert_vertex(t_graph *graph, char *name);
+void					end_start_comment(char **line, t_graph *g);
+bool					stop_reading_vertexes(char *line);
+
 /*
 ** ********************** Addtional functions ********************************
 */
+
 int						get_ants_amount();
-void					error_generated(int error_num);
+void					simple_error_generated(int error);
+void					error_generated(int error_num, t_graph *graph);
 bool					is_only_numbers(char *str);
 bool					is_only_space_num(char *str);
 
