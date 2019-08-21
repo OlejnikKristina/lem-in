@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 20:08:38 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/19 22:07:33 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/20 19:06:17 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,7 @@
 **		ft_strstr
 **		ft_strsub
 **
+**		How to check map during evaluation
+**		Write in second map part two  commands modifying the properties
+**		lines that start with ##. For example: ##start ##start
 */

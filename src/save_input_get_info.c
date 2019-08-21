@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   save_input_get_info.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/08/18 20:10:06 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 15:56:03 by krioliin      ########   odam.nl         */
+/*   Created: 2019/08/21 14:03:23 by krioliin       #+#    #+#                */
+/*   Updated: 2019/08/21 14:13:40 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		main(void)
+void	save_input_get_info(t_graph *graph)
 {
-	t_graph	graph;
-
-//	save_input_get_info(&graph);
-	create_graph(&graph);
-	
-	return (0);
+	//write everything into save_input.txt
+	//check if input is valid
+	//get amount of rooms
 }

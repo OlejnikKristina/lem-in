@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/19 22:21:51 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 14:46:45 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,16 @@ typedef struct			s_vertex
 
 typedef struct			s_graph
 {
+	char				*start_vertex;
+	char				*end_vertex;
 	int					n_ants;
 	int					n_vertexes;
 	int					n_edges;
 	t_vertex			*top_vertex;
 }						t_graph;
 
-
-bool					creat_graph(t_graph *graph);
+void					save_input_get_info(t_graph *graph);
+bool					create_graph(t_graph *graph);
 
 /*
 ** ********************** Addtional functions ********************************

@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/19 23:02:01 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 15:56:04 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_vertex	*create_vertex(char *name)
 	return (new_vertex);
 }
 
-short	graph_insert_vertexes(t_graph *graph, char *name)
+short	graph_insert_vertex(t_graph *graph, char *name)
 {
 	t_vertex	*current;
 
@@ -48,7 +48,11 @@ short	graph_insert_vertexes(t_graph *graph, char *name)
 	{
 		graph->top_vertex = create_vertex(name);
 		if (!graph->top_vertex)
-			return (-1);							//Error num 3 ganerated-> Rm all before created nodes
+		{
+			//Stop program executing. Free graph
+			error_generated(3);
+			return (-1);
+		}
 	}
 	else
 	{
@@ -57,7 +61,6 @@ short	graph_insert_vertexes(t_graph *graph, char *name)
 		current->next = create_vertex(name);
 	}
 	graph->n_vertexes++;
-
 }
 
 char	*get_vertex_name(char **line)
@@ -66,10 +69,10 @@ char	*get_vertex_name(char **line)
 	int		name_len;
 
 	name_len = findchr(*line, ' ');
-	if (!is_only_space_num(*line) || name_len == -1)
+	if (!is_only_space_num(*line) || name_len == -1 || (*line[0] == 'L'))
 	{
-		ft_strdel(line);								// Free top vertex
-		error_generated(4);								// You can send here line whith error
+		ft_strdel(line);											// Free top vertex
+		error_generated(4);											// You can send here line whith error
 		return (NULL);
 	}
 	name = ft_strsub(*line, 0, name_len);
@@ -82,7 +85,11 @@ char	*end_start_comment(char **line, char **start_vertex, char **end_vertex)
 
 	start_end_comment = '\0';
 	if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
+	{
+		if (*start_vertex || *end_vertex)
+			error_generated(5);										//Stop program executing. Free graph
 		start_end_comment = (*line)[2];
+	}
 	else
 		start_end_comment = 'c';
 	ft_strdel(line);
@@ -96,32 +103,55 @@ char	*end_start_comment(char **line, char **start_vertex, char **end_vertex)
 		*start_vertex = get_vertex_name(line);
 	else
 		*end_vertex = get_vertex_name(line);
+	if (*start_vertex || *end_vertex)
+		error_generated(4);											//Stop program executing. Free graph
 	return ((*start_vertex) ? *start_vertex : *end_vertex);
 }
 
 /*
-**		Read ant farm
+**	[stop_reading_vertexes]
+**	Check if we still reading data about room/room's name
+**	Either reached data regarding rooms conections
 */
 
-bool	find_vertexes(t_graph *graph, char **start_vertex, char **end_vertex)
+bool	stop_reading_vertexes(char *line)
 {
+	int		space;
+
+	space = findchr(line, ' ');
+	if ((space != -1 && findchr(&line[space + 1], ' ')) != -1 || line[0] == '#')
+		return (false);
+	return (true);
+}
+
+/*
+**	[add_vertexes] Read ant farm
+**	Check if there is: start room (vertex), end room, comment or
+**	regular room. Extract name of it. Add it as a new vertex to a graph
+*/
+
+char	*add_vertexes(t_graph *graph, char **start_vertex, char **end_vertex)
+{
+	// char	*all_vrtxs_names;
 	char	*line;
 	char	*vertex_name;
 
 	get_next_line(0, &line);
-	if (line[0] == '#')
+	while (stop_reading_vertexes(line))
 	{
-		vertex_name = end_start_comment(&line, start_vertex, end_vertex);
+		if (line[0] == '#')
+			vertex_name = end_start_comment(&line, graph->start_vertex, graph->end_vertex);
+		else
+			vertex_name = get_vertex_name(&line);
 		if (vertex_name)
-		{
-			graph_insert_vertexes(graph, vertex_name);
-		}
+			graph_insert_vertex(graph, vertex_name);
 	}
 	return (true);
 }
 
-bool	creat_graph(t_graph *graph)
+bool	create_graph(t_graph *graph)
 {
+	char		*vertex_conection;
 	char		*start_vertex;
 	char		*end_vertex;
 
@@ -129,6 +159,6 @@ bool	creat_graph(t_graph *graph)
 	end_vertex = NULL;
 	ft_bzero(graph, sizeof(graph));
 	graph->n_ants = get_ants_amount();
-	find_vertexes(graph, &start_vertex, &end_vertex);
+	add_vertexes(graph, &start_vertex, &end_vertex);
 	return (true);
 }
