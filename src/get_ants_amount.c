@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 16:08:10 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 18:30:58 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		get_ants_amount()
 	char	*line;
 	int		ants_amount;
 
+	close(0);
+	open("maps/subject-1.txt", O_RDONLY);
 	if (get_next_line(0, &line) == -1 || line[0] == '\0')
 		error_generated(1);
 	ants_amount = ft_atoi(line);

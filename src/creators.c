@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 17:13:41 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 19:14:45 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 	if (current == NULL)
 	{
 		graph->top_vertex = create_vertex(name);
+		current = graph->top_vertex;
 		if (!graph->top_vertex)
 		{
 			//Stop program executing. Free graph
@@ -65,7 +66,7 @@ char	*get_vertex_name(char **line)
 	int		name_len;
 
 	name_len = findchr(*line, ' ');
-	if (!is_only_space_num(*line) || name_len == -1 || (*line[0] == 'L'))
+	if (name_len == -1 || (*line[0] == 'L'))
 	{
 		ft_strdel(line);											// Free top vertex
 		error_generated(4);											// You can send here line whith error
@@ -84,7 +85,7 @@ void	end_start_comment(char **line, t_graph *g)
 	start_end_comment = '\0';
 	if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
 	{
-		if (start_vertix || g->end_vertex)
+		if (start_vertix && g->end_vertex)
 			error_generated(5);										//Stop program executing. Free g
 		start_end_comment = (*line)[2];
 	}

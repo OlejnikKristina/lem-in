@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 16:36:24 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 18:19:54 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct			s_graph
 
 
 bool					create_graph(t_graph *graph);
-
+void					free_graph(t_graph *graph);
 /*
 ** ********************** Addtional functions ********************************
 */
