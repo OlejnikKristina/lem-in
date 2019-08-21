@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 21:12:37 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 21:16:53 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ struct					t_vertex;
 
 typedef struct			s_adjvertex
 {
-	struct t_vertex			*vertex;
+	struct t_vertex		*vertex;
 	struct s_adjvertex	*next;
 
 }						t_adjvertex;
@@ -87,6 +87,6 @@ int						get_ants_amount();
 void					simple_error_generated(int error);
 void					error_generated(int error_num, t_graph *graph);
 bool					is_only_numbers(char *str);
-bool					is_only_space_num(char *str);
+//bool					is_only_space_num(char *str);
 
 #endif

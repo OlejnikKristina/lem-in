@@ -6,11 +6,22 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 21:00:37 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 21:16:38 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+bool	is_only_numbers(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}
 
 int		get_ants_amount()
 {
