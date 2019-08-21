@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 18:19:54 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 19:23:45 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@
 // 						black
 // };
 
+typedef struct			s_vertex;
+
 typedef struct			s_adjvertex
 {
-	char				*vertex_name;
+	t_vertex			*vertex;
 	struct s_adjvertex	*next;
 
 }						t_adjvertex;
