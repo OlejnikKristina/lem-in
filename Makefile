@@ -13,7 +13,7 @@
 NAME		= lem-in
 SRC			= main.c errors_management.c \
 			create_graph.c get_ants_amount.c free_graph.c \
-			add_vertexes.c set_connections.c
+			add_vertexes.c set_connections.c lem_in.c
 
 all: $(NAME)
 

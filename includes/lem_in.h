@@ -51,6 +51,10 @@ typedef struct			s_adjvertex
 
 typedef struct			s_vertex
 {
+<<<<<<< HEAD
+	int					id;
+=======
+>>>>>>> 30cbb7163cc493659aba6af409c6b1f66a080df3
 	int					lvl;
 	char				*name;
 	struct s_vertex		*next;
@@ -93,5 +97,11 @@ void					error_generated(int error_num, t_graph *graph);
 
 void					print_graph(t_vertex *top_vertex);
 bool					is_only_numbers(char *str);
+
+/*
+	*********************** BFS ****************************
+*/
+
+void	bfs_search(t_graph *graph);
 
 #endif

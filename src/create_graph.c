@@ -20,6 +20,7 @@ t_vertex	*create_vertex(char *name, int id)
 	if (!new_vertex)
 		return (NULL);
 	new_vertex->name = ft_strdup(name);
+	new_vertex->lvl = 0;
 	new_vertex->id = id + 1;
 	new_vertex->next = NULL;
 	return (new_vertex);
