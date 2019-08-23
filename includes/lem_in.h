@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 21:16:53 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/22 20:42:03 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@
 // 						black
 // };
 
-struct					t_vertex;
+struct					s_vertex;
 
 typedef struct			s_adjvertex
 {
-	struct t_vertex		*vertex;
+	struct s_vertex		*vertex;
 	struct s_adjvertex	*next;
 
 }						t_adjvertex;
@@ -51,9 +51,10 @@ typedef struct			s_adjvertex
 
 typedef struct			s_vertex
 {
+	int					id;
 	char				*name;
 	struct s_vertex		*next;
-	struct s_adjvertex	**adj_vertexes;
+	struct s_adjvertex	*adj_vertexes;
 	
 }						t_vertex;
 
@@ -73,20 +74,24 @@ typedef struct			s_graph
 bool					create_graph(t_graph *graph);
 void					free_graph(t_graph *graph);
 char					*get_vertex_name(char **line, t_graph *graph);
-t_vertex				*create_vertex(char *name);
+t_vertex				*create_vertex(char *name, int id);
 t_vertex				*graph_insert_first_vertex(t_graph *graph, char *name);
 t_vertex				*graph_insert_vertex(t_graph *graph, char *name);
-void					end_start_comment(char **line, t_graph *g);
-bool					stop_reading_vertexes(char *line);
+bool					read_vertexes(char *line);
 
+
+void					set_connections(t_graph *graph, char *first_conection, char *all_names);
 /*
 ** ********************** Addtional functions ********************************
 */
 
 int						get_ants_amount();
+void					add_name_to_strlist(char **all_names, char *new_name);
+
 void					simple_error_generated(int error);
 void					error_generated(int error_num, t_graph *graph);
+
+void					print_graph(t_vertex *top_vertex);
 bool					is_only_numbers(char *str);
-//bool					is_only_space_num(char *str);
 
 #endif

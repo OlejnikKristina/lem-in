@@ -6,46 +6,37 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 21:05:38 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 21:11:43 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/22 20:23:23 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+char	*get_vertex_name(char **line, t_graph *graph)
+{
+	char	*name;
+	int		name_len;
+
+	name_len = findchr(*line, ' ');
+	if (name_len == -1 || (*line[0] == 'L'))
+	{
+		ft_strdel(line);
+		error_generated(4, graph);
+		return (NULL);
+	}
+	name = ft_strsub(*line, 0, name_len);
+	return (name);
+}
+
 t_vertex	*graph_insert_first_vertex(t_graph *graph, char *name)
 {
 	t_vertex	*new_top_vertex;
 
-	new_top_vertex = create_vertex(name);
+	new_top_vertex = create_vertex(name, -1);
 	new_top_vertex->next = graph->top_vertex;
 	graph->top_vertex = new_top_vertex;
+	graph->n_vertexes++;
 	return (new_top_vertex);
-}
-
-void	end_start_comment(char **line, t_graph *g)
-{
-	char		start_end_comment;
-	bool static	start_vertix;
-	char		*name;
-
-	start_end_comment = '\0';
-	if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
-	{
-		if (start_vertix && g->end_vertex)
-			error_generated(5, g);
-		start_end_comment = (*line)[2];
-	}
-	ft_strdel(line);
-	get_next_line(0, line);
-	name = get_vertex_name(line, g);
-	if (start_end_comment == 's')
-	{
-		g->top_vertex = graph_insert_first_vertex(g, name);
-		start_vertix = true;
-	}
-	else if (start_end_comment == 'e')
-		g->end_vertex = graph_insert_vertex(g, name);
-	ft_strdel(&name);
 }
 
 /*
@@ -54,12 +45,12 @@ void	end_start_comment(char **line, t_graph *g)
 **	Either reached data regarding rooms conections
 */
 
-bool	stop_reading_vertexes(char *line)
+bool	read_vertexes(char *line)
 {
 	int		space;
 
 	space = findchr(line, ' ');
-	if ((space != -1 && findchr(&line[space + 1], ' ') != -1) || line[0] == '#')
-		return (false);
-	return (true);
+	if ((space != -1 && (findchr(&line[space + 1], ' ') != -1)) || line[0] == '#')
+		return (true);
+	return (false);
 }

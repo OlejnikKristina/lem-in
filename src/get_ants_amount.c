@@ -6,11 +6,49 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/21 21:16:38 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/23 14:39:35 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	add_name_to_strlist(char **all_names, char *new_name)
+{
+	if (*all_names)
+	{
+		if (!ft_strstr(*all_names, new_name))
+		{
+			*all_names = ft_superjoin(all_names, new_name);
+			*all_names = ft_superjoin(all_names, "  ");
+		}
+	}
+	else
+	{
+		*all_names = ft_strdup(new_name);
+		*all_names = ft_superjoin(all_names, "  ");
+	}
+}
+
+void	print_graph(t_vertex *top_vertex)
+{
+	t_vertex	*vertex;
+	t_adjvertex	*adj_vertex;
+
+	vertex = top_vertex;
+	adj_vertex = vertex->adj_vertexes;
+	while (vertex)
+	{
+		adj_vertex = vertex->adj_vertexes;
+		printf("Vertex:[%s] conected with:", vertex->name);
+		while (adj_vertex)
+		{
+			printf(" (%s)", adj_vertex->vertex->name);
+			adj_vertex = adj_vertex->next;
+		}
+		vertex = vertex->next;
+		printf("\n");
+	}
+}
 
 bool	is_only_numbers(char *str)
 {

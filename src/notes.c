@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 20:08:38 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/20 19:06:17 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/21 21:47:58 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 **		ft_memalloc
 **		ft_strstr
 **		ft_strsub
+**		ft_strsplit
 **
 **		How to check map during evaluation
 **		Write in second map part two  commands modifying the properties
