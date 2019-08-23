@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/23 17:58:55 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/23 21:53:10 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_vertex	*create_vertex(char *name, int id)
+t_vertex	*create_vertex(char *name)
 {
 	t_vertex	*new_vertex;
 
@@ -21,7 +21,6 @@ t_vertex	*create_vertex(char *name, int id)
 		return (NULL);
 	new_vertex->name = ft_strdup(name);
 	new_vertex->lvl = 0;
-	new_vertex->id = id + 1;
 	new_vertex->next = NULL;
 	return (new_vertex);
 }
@@ -33,7 +32,7 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 	current = graph->top_vertex;
 	if (current == NULL)
 	{
-		graph->top_vertex = create_vertex(name, 0);
+		graph->top_vertex = create_vertex(name);
 		current = graph->top_vertex;
 		if (!graph->top_vertex)
 		{
@@ -49,13 +48,13 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 				return (NULL);
 			current = current->next;
 		}
-		current->next = create_vertex(name, current->id);
+		current->next = create_vertex(name);
 	}
 	graph->n_vertexes++;
 	return (current->next);
 }
 
-void	end_start_comment(char **line, t_graph *g, char **all_names)
+void	end_start_comment(char **line, t_graph *g)
 {
 	char		start_end_comment;
 	bool static	start_vertix;
@@ -73,7 +72,6 @@ void	end_start_comment(char **line, t_graph *g, char **all_names)
 	ft_strdel(line);
 	get_next_line(0, line);
 	name = get_vertex_name(line, g);
-	add_name_to_strlist(all_names, name);
 	if (start_end_comment == 's')
 	{
 		g->top_vertex = graph_insert_first_vertex(g, name);
@@ -90,7 +88,7 @@ void	end_start_comment(char **line, t_graph *g, char **all_names)
 **	regular room. Extract name of it. Add it as a new vertex to a graph
 */
 
-char	*add_vertexes(t_graph *graph, char **all_names)
+char	*add_vertexes(t_graph *graph)
 {
 	char	*line;
 	char	*vertex_name;
@@ -99,12 +97,12 @@ char	*add_vertexes(t_graph *graph, char **all_names)
 	while (read_vertexes(line))
 	{
 		if (line[0] == '#')
-			end_start_comment(&line, graph, all_names);
+			end_start_comment(&line, graph);
 		else
 		{
 			vertex_name = get_vertex_name(&line, graph);
 			graph_insert_vertex(graph, vertex_name);
-			add_name_to_strlist(all_names, vertex_name);
+			ft_strdel(&vertex_name);
 		}
 		ft_strdel(&line);
 		get_next_line(0, &line);
@@ -115,14 +113,11 @@ char	*add_vertexes(t_graph *graph, char **all_names)
 bool	create_graph(t_graph *graph)
 {
 	char		*first_conection;
-	char		*all_names;
 
-	all_names = NULL;
 	graph->end_vertex = NULL;
 	ft_bzero(graph, sizeof(graph));
 	graph->n_ants = get_ants_amount();
-	first_conection = add_vertexes(graph, &all_names);
-	printf("%s\n", all_names);
-	set_connections(graph, first_conection, all_names);
+	first_conection = add_vertexes(graph);
+	set_connections(graph, first_conection);
 	return (true);
 }

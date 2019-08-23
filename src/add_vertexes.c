@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 21:05:38 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/22 20:23:23 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/23 20:19:21 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vertex	*graph_insert_first_vertex(t_graph *graph, char *name)
 {
 	t_vertex	*new_top_vertex;
 
-	new_top_vertex = create_vertex(name, -1);
+	new_top_vertex = create_vertex(name);
 	new_top_vertex->next = graph->top_vertex;
 	graph->top_vertex = new_top_vertex;
 	graph->n_vertexes++;
