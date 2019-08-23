@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 21:23:17 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/23 15:03:29 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/23 15:39:10 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	set_connections(t_graph *graph, char *first_edge, char *all_names)
 				error_generated(6, graph);
 			}
 			graph_insert_edge(graph, names[0], names[1]);
+			graph_insert_edge(graph, names[1], names[0]);
 		}
 		ft_strdel(&line);
 		get_next_line(0, &line);
