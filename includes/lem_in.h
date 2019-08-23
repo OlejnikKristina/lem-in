@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/22 20:42:03 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/23 17:58:16 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct			s_adjvertex
 
 typedef struct			s_vertex
 {
-	int					id;
+	int					lvl;
 	char				*name;
 	struct s_vertex		*next;
 	struct s_adjvertex	*adj_vertexes;
