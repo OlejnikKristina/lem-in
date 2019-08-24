@@ -31,7 +31,7 @@ t_vertex		*is_valid_vertex(t_adjvertex *queue, t_adjvertex *current_connections,
 	if (current_connections->vertex->lvl == -2) /* return if the node to add is the end room */
 	{
 		if (current_connections->next) /* if there is another node to check, check next node */
-			return (nodes_to_add(queue, current_connections->next, to_add));
+			return (is_valid_vertex(queue, current_connections->next, to_add));
 		return (0); /* else return */
 	}
 	tmp = current_connections->vertex;
@@ -40,7 +40,7 @@ t_vertex		*is_valid_vertex(t_adjvertex *queue, t_adjvertex *current_connections,
 		if (tmp_queue->vertex == tmp) /* if the node is repeating */
 		{
 			if (current_connections->next) /* if there is another node to check, check next node */
-				return (nodes_to_add(queue, current_connections->next, to_add));
+				return (is_valid_vertex(queue, current_connections->next, to_add));
 			return (0); /* else return */
 		}
 		if(tmp_queue->next == 0)
