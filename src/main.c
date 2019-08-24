@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 20:10:06 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/23 21:53:48 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/24 17:33:45 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int		main(void)
 	bfs_search(&graph);
 	print_graph(graph.top_vertex);
 	free_graph(&graph);
-	sleep(10);
 	return (0);
 }

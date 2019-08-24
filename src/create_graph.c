@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/23 21:53:10 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/24 17:35:27 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ bool	create_graph(t_graph *graph)
 	ft_bzero(graph, sizeof(graph));
 	graph->n_ants = get_ants_amount();
 	first_conection = add_vertexes(graph);
+	printf("rooms %d", graph->n_vertexes);
 	set_connections(graph, first_conection);
 	return (true);
 }
