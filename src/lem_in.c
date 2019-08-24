@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: kpereira <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/08/21 15:59:28 by kpereira      #+#    #+#                 */
-/*   Updated: 2019/08/21 15:59:29 by kpereira      ########   odam.nl         */
+/*   Created: 2019/08/21 15:59:28 by kpereira       #+#    #+#                */
+/*   Updated: 2019/08/24 18:12:28 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	bfs_search(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_c
 	to_add = is_valid_vertex(queue, current_connections, to_add);
 	while (to_add)
 	{
-		push_node(queue, to_add, current->vertex->lvl + 1);
+		push_node(queue, to_add, current->vertex->lvl > 0 ? current->vertex->lvl + 1 : 1);
 		if (!next_node(&current, &current_connections))
 			return ;
 		to_add = is_valid_vertex(queue, current_connections, to_add);
@@ -138,3 +138,18 @@ void	init_queue(t_graph *graph)
 	bfs_search(queue, queue, queue->vertex->adj_vertexes);
 	free_adjacent_list(queue);
 }
+
+// void	init_queue(t_graph *graph, t_adjvertex **queue)
+// {
+// 	queue = (t_adjvertex *)malloc(sizeof(t_vertex));
+
+// 	queue->vertex = graph->top_vertex;
+// 	queue->vertex->lvl = -1;
+// 	graph->end_vertex->lvl = -2;
+// 	queue->next = 0;
+// }
+
+// void	bfs_search()
+// {
+
+// }

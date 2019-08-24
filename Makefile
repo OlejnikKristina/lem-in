@@ -6,14 +6,14 @@
 #    By: krioliin <krioliin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/18 20:29:00 by krioliin       #+#    #+#                 #
-#    Updated: 2019/08/22 21:25:51 by krioliin      ########   odam.nl          #
+#    Updated: 2019/08/24 18:33:27 by krioliin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= lem-in
 SRC			= main.c errors_management.c \
 			create_graph.c get_ants_amount.c free_graph.c \
-			add_vertexes.c set_connections.c lem_in.c
+			add_vertexes.c set_connections.c lem_in.c paths.c
 
 all: $(NAME)
 
