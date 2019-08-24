@@ -32,7 +32,7 @@ t_vertex	*graph_insert_first_vertex(t_graph *graph, char *name)
 {
 	t_vertex	*new_top_vertex;
 
-	new_top_vertex = create_vertex(name, -1);
+	new_top_vertex = create_vertex(name);
 	new_top_vertex->next = graph->top_vertex;
 	graph->top_vertex = new_top_vertex;
 	graph->n_vertexes++;

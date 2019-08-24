@@ -68,7 +68,7 @@ int		get_ants_amount()
 	int		ants_amount;
 
 	close(0);
-	open("maps/subject-1.txt", O_RDONLY);
+	open("test.txt", O_RDONLY);
 	if (get_next_line(0, &line) == -1 || line[0] == '\0')
 		simple_error_generated(1);
 	ants_amount = ft_atoi(line);

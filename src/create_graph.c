@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-t_vertex	*create_vertex(char *name, int id)
+t_vertex	*create_vertex(char *name)
 {
 	t_vertex	*new_vertex;
 
@@ -21,7 +21,6 @@ t_vertex	*create_vertex(char *name, int id)
 		return (NULL);
 	new_vertex->name = ft_strdup(name);
 	new_vertex->lvl = 0;
-	new_vertex->id = id + 1;
 	new_vertex->next = NULL;
 	return (new_vertex);
 }
@@ -33,7 +32,7 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 	current = graph->top_vertex;
 	if (current == NULL)
 	{
-		graph->top_vertex = create_vertex(name, 0);
+		graph->top_vertex = create_vertex(name);
 		current = graph->top_vertex;
 		if (!graph->top_vertex)
 		{
@@ -49,7 +48,7 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 				return (NULL);
 			current = current->next;
 		}
-		current->next = create_vertex(name, current->id);
+		current->next = create_vertex(name);
 	}
 	graph->n_vertexes++;
 	return (current->next);
@@ -104,7 +103,7 @@ char	*add_vertexes(t_graph *graph, char **all_names)
 		{
 			vertex_name = get_vertex_name(&line, graph);
 			graph_insert_vertex(graph, vertex_name);
-			add_name_to_strlist(all_names, vertex_name);
+		//	add_name_to_strlist(all_names, vertex_name);
 		}
 		ft_strdel(&line);
 		get_next_line(0, &line);
@@ -122,7 +121,7 @@ bool	create_graph(t_graph *graph)
 	ft_bzero(graph, sizeof(graph));
 	graph->n_ants = get_ants_amount();
 	first_conection = add_vertexes(graph, &all_names);
-	printf("%s\n", all_names);
+	// printf("%s\n", all_names);
 	set_connections(graph, first_conection, all_names);
 	return (true);
 }

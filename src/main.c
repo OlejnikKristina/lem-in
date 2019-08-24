@@ -40,7 +40,7 @@ int		main(void)
 	// 	ft_putchar('\n');
 	// 	tmp = tmp->next;
 	// }
-	print_graph(graph.top_vertex);
+	// print_graph(graph.top_vertex);
 	free_graph(&graph);
 	return (0);
 }

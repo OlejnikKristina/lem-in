@@ -180,7 +180,7 @@ t_vertex		*nodes_to_add(t_adjvertex *queue, t_adjvertex *current_connections, t_
 	add_nodes
 */
 
-void	add_nodes(t_adjvertex *queue, t_vertex *to_add)
+void	add_nodes(t_adjvertex *queue, t_vertex *to_add, int lvl)
 {
 	t_adjvertex		*tmp;
 	t_adjvertex		*new;
@@ -188,6 +188,7 @@ void	add_nodes(t_adjvertex *queue, t_vertex *to_add)
 	tmp = queue;
 	new = (t_adjvertex *)malloc(sizeof(t_adjvertex));
 	new->vertex = to_add;
+	new->vertex->lvl = lvl; 
 	while (tmp->next)
 	{
 		tmp = tmp->next;
@@ -219,7 +220,7 @@ int		next_node(t_adjvertex **current, t_adjvertex **current_connections)
 	Add correct nodes to the queue.
 */
 
-void	add_vertex(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_connections)
+void	queue_add_vertex(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_connections)
 {
 	t_vertex	*to_add;
 	int			i;
@@ -229,14 +230,14 @@ void	add_vertex(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_c
 	to_add = nodes_to_add(queue, current_connections, to_add);
 	while (to_add)
 	{
-		add_nodes(queue, to_add);
+		add_nodes(queue, to_add, current->vertex->lvl + 1);
 		if (!next_node(&current, &current_connections))
 			return ;
 		to_add = nodes_to_add(queue, current_connections, to_add);
 	}
 	if (!next_node(&current, &current_connections))
 		return ;
-	add_vertex(queue, current, current_connections);
+	queue_add_vertex(queue, current, current_connections);
 
 }
 
@@ -260,7 +261,7 @@ void	bfs_search(t_graph *graph)
 	queue->vertex->lvl = -1;
 	graph->end_vertex->lvl = -2;
 	queue->next = 0;
-	add_vertex(queue, queue, queue->vertex->adj_vertexes);
+	queue_add_vertex(queue, queue, queue->vertex->adj_vertexes);
 }
 
 // int     main(void)

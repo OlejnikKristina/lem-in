@@ -51,10 +51,6 @@ typedef struct			s_adjvertex
 
 typedef struct			s_vertex
 {
-<<<<<<< HEAD
-	int					id;
-=======
->>>>>>> 30cbb7163cc493659aba6af409c6b1f66a080df3
 	int					lvl;
 	char				*name;
 	struct s_vertex		*next;
@@ -78,7 +74,7 @@ typedef struct			s_graph
 bool					create_graph(t_graph *graph);
 void					free_graph(t_graph *graph);
 char					*get_vertex_name(char **line, t_graph *graph);
-t_vertex				*create_vertex(char *name, int id);
+t_vertex				*create_vertex(char *name);
 t_vertex				*graph_insert_first_vertex(t_graph *graph, char *name);
 t_vertex				*graph_insert_vertex(t_graph *graph, char *name);
 bool					read_vertexes(char *line);

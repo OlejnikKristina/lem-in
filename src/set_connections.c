@@ -107,16 +107,18 @@ void	set_connections(t_graph *graph, char *first_edge, char *all_names)
 	char	**names;
 
 	line = first_edge;
+	if (all_names)
+		all_names[0] = 'k';
 	while (ft_strlen(line))
 	{
 		if (line[0] != '#')
 		{
 			names = ft_strsplit(line, '-');
-			if (!ft_strstr(all_names, names[0]) || !ft_strstr(all_names, names[1]))
-			{
-				printf("room1 %s room2 %s\n", names[0], names[1]);
-				error_generated(6, graph);
-			}
+			// if (!ft_strstr(all_names, names[0]) || !ft_strstr(all_names, names[1]))
+			// {
+			// 	printf("room1 %s room2 %s\n", names[0], names[1]);
+			// 	error_generated(6, graph);
+			// }
 			graph_insert_edge(graph, names[0], names[1]);
 			graph_insert_edge(graph, names[1], names[0]);
 		}
