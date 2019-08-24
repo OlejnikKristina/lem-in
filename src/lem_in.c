@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: kpereira <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/08/21 15:59:28 by kpereira      #+#    #+#                 */
-/*   Updated: 2019/08/21 15:59:29 by kpereira      ########   odam.nl         */
+/*   Created: 2019/08/21 15:59:28 by kpereira       #+#    #+#                */
+/*   Updated: 2019/08/24 17:56:11 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	bfs_search(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_c
 	Initializes the queue.
 	Set the begin room in the beginning of the list.
 
-	Send the qeueu and the list of connections of the begin room to the add vertex.
+	Send the queue and the list of connections of the begin room to the add vertex.
 
 	Begin room is lvled as -1 and the end room is lvled as -2.
 	the lvl is important to recognize that the end room is the end room.
@@ -136,5 +136,6 @@ void	init_queue(t_graph *graph)
 	graph->end_vertex->lvl = -2;
 	queue->next = 0;
 	bfs_search(queue, queue, queue->vertex->adj_vertexes);
+	find_paths(graph, queue);
 	free_adjacent_list(queue);
 }
