@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 20:10:06 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/23 16:09:36 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/23 21:53:48 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ int		main(void)
 {
 	t_graph	graph;
 
-	// t_vertex	*tmp;
-	// t_adjvertex	*adjs;
-
-
 	create_graph(&graph);
 	bfs_search(&graph);
+<<<<<<< HEAD
 
 	// tmp = graph.top_vertex;
 	// while (tmp)
@@ -41,6 +38,10 @@ int		main(void)
 	// 	tmp = tmp->next;
 	// }
 	// print_graph(graph.top_vertex);
+=======
+	print_graph(graph.top_vertex);
+>>>>>>> 5bf1bd957729c37f214ac7b9d0a09bfa25c643fc
 	free_graph(&graph);
+	sleep(10);
 	return (0);
 }

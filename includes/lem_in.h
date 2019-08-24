@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/23 17:58:16 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/23 21:10:47 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct			s_vertex
 	char				*name;
 	struct s_vertex		*next;
 	struct s_adjvertex	*adj_vertexes;
-	
 }						t_vertex;
 
 typedef struct			s_graph
@@ -80,7 +79,7 @@ t_vertex				*graph_insert_vertex(t_graph *graph, char *name);
 bool					read_vertexes(char *line);
 
 
-void					set_connections(t_graph *graph, char *first_conection, char *all_names);
+void					set_connections(t_graph *graph, char *first_conection);
 /*
 ** ********************** Addtional functions ********************************
 */
