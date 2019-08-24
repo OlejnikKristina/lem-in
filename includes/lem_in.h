@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/24 17:34:56 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/24 18:32:56 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void					free_adjacent_list(t_adjvertex *list);
 */
 
 void					init_queue(t_graph *graph);
+void					find_paths(t_graph *graph, t_paths *paths);
 
 
 #endif
