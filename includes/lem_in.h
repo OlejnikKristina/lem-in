@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/23 21:10:47 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/24 17:34:56 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@
 ** rooms ③ and ⑤
 */
 
-// enum					e_colors
-// {
-// 						white, 
-// 						gray, 
-// 						black
-// };
+enum					e_colors
+{
+						white, 
+						gray, 
+						black
+};
 
 struct					s_vertex;
 

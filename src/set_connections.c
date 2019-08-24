@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 21:23:17 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/23 21:50:52 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/24 13:30:36 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ short	graph_insert_edge(t_graph *graph, char *name1, char *name2)
 	}
 	if (!vertex1 || !vertex2)
 		error_generated(6, graph);
+	graph->n_edges += 1;
 	return (create_edge(&vertex1->adj_vertexes, vertex2));
 }
 
@@ -85,8 +86,6 @@ void	set_connections(t_graph *graph, char *first_edge)
 	char	**names;
 
 	line = first_edge;
-	if (all_names)
-		all_names[0] = 'k';
 	while (ft_strlen(line))
 	{
 		if (line[0] != '#')
