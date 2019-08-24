@@ -19,28 +19,8 @@ int		main(void)
 	t_graph	graph;
 
 	create_graph(&graph);
-	bfs_search(&graph);
-<<<<<<< HEAD
-
-	// tmp = graph.top_vertex;
-	// while (tmp)
-	// {
-	// 	adjs = tmp->adj_vertexes;
-	// 	ft_putstr(tmp->name);
-	// 	ft_putstr(" connects to: ");
-	// 	while (adjs)
-	// 	{
-	// 		ft_putstr(adjs->vertex->name);
-	// 		ft_putchar(' ');
-	// 		adjs = adjs->next;
-	// 	}
-	// 	ft_putchar('\n');
-	// 	tmp = tmp->next;
-	// }
-	// print_graph(graph.top_vertex);
-=======
+	init_queue(&graph);
 	print_graph(graph.top_vertex);
->>>>>>> 5bf1bd957729c37f214ac7b9d0a09bfa25c643fc
 	free_graph(&graph);
 	sleep(10);
 	return (0);

@@ -12,132 +12,6 @@
 
 #include "lem_in.h"
 
-// void	test_map_alloc(t_graph *graph)
-// {
-// 	t_vertex	*node_1;
-// 	t_vertex	*node_2;
-// 	t_vertex	*node_3;
-// 	t_vertex	*node_4;
-// 	t_vertex	*node_5;
-// 	t_vertex	*node_6;
-
-
-// 	graph->n_ants = 2;
-// 	graph->n_edges = 6;
-// 	graph->n_vertexes = 6;
-
-// 	node_1 = (t_vertex *)malloc(sizeof(t_vertex));
-// 	node_2 = (t_vertex *)malloc(sizeof(t_vertex));
-// 	node_3 = (t_vertex *)malloc(sizeof(t_vertex));
-// 	node_4 = (t_vertex *)malloc(sizeof(t_vertex));
-// 	node_5 = (t_vertex *)malloc(sizeof(t_vertex));
-// 	node_6 = (t_vertex *)malloc(sizeof(t_vertex));
-
-// 	node_1->name = (char *)malloc(sizeof(char) * 2);
-// 	node_1->name[0] = '1';
-// 	node_1->name[1] = '\0';
-// 	node_2->name = (char *)malloc(sizeof(char) * 2);
-// 	node_2->name[0] = '2';
-// 	node_2->name[1] = '\0';
-// 	node_3->name = (char *)malloc(sizeof(char) * 2);
-// 	node_3->name[0] = '3';
-// 	node_3->name[1] = '\0';
-// 	node_4->name = (char *)malloc(sizeof(char) * 2);
-// 	node_4->name[0] = '4';
-// 	node_4->name[1] = '\0';
-// 	node_5->name = (char *)malloc(sizeof(char) * 2);
-// 	node_5->name[0] = '5';
-// 	node_5->name[1] = '\0';
-// 	node_6->name = (char *)malloc(sizeof(char) * 2);
-// 	node_6->name[0] = '6';
-// 	node_6->name[1] = '\0';
-
-// 	node_1->next = node_2;
-// 	node_2->next = node_3;
-// 	node_3->next = node_4;
-// 	node_4->next = node_5;
-// 	node_5->next = node_6;
-// 	node_6->next = 0;
-
-// 	node_1->lvl = 0;
-// 	node_2->lvl = 0;
-// 	node_3->lvl = 0;
-// 	node_4->lvl = 0;
-// 	node_5->lvl = 0;
-// 	node_6->lvl = 0;
-
-// 	graph->end_vertex = node_6;
-// 	graph->top_vertex = node_1;
-
-// /*				------------------------------				 */
-
-// 	t_adjvertex		*conn_1;
-// 	t_adjvertex		*conn_2;
-// 	t_adjvertex		*conn_3;
-// 	t_adjvertex		*conn_4;
-// 	t_adjvertex		*conn_5;
-// 	t_adjvertex		*conn_6;
-// 	t_adjvertex		*conn_7;
-// 	t_adjvertex		*conn_8;
-// 	t_adjvertex		*conn_9;
-// 	t_adjvertex		*conn_10;
-// 	t_adjvertex		*conn_11;
-// 	t_adjvertex		*conn_12;
-
-// 	conn_1 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_2 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_3 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_4 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_5 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_6 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_7 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_8 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_9 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_10 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_11 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-// 	conn_12 = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-
-// 	conn_1->vertex = node_2;
-// 	conn_2->vertex = node_3;
-// 	conn_3->vertex = node_5;
-// 	conn_4->vertex = node_4;
-// 	conn_5->vertex = node_6;
-// 	conn_6->vertex = node_6;
-
-// 	conn_7->vertex = node_1;
-// 	conn_8->vertex = node_1;
-// 	conn_9->vertex = node_2;
-// 	conn_10->vertex = node_3;
-// 	conn_11->vertex = node_4;
-// 	conn_12->vertex = node_5;
-
-// 	node_1->adj_vertexes = conn_1;
-// 	conn_1->next = conn_2;
-// 	conn_2->next = 0;
-
-
-// 	node_2->adj_vertexes = conn_4;
-// 	conn_4->next = conn_7;
-// 	conn_7->next = 0;
-
-// 	node_3->adj_vertexes = conn_3;
-// 	conn_3->next = conn_8;
-// 	conn_8->next = 0;
-
-// 	node_4->adj_vertexes = conn_5;
-// 	conn_5->next = conn_9;
-// 	conn_9->next = 0;
-
-// 	node_5->adj_vertexes = conn_6;
-// 	conn_6->next = conn_10;
-// 	conn_10->next = 0;
-
-// 	node_6->adj_vertexes = conn_11;
-// 	conn_11->next = conn_12;
-// 	conn_12->next = 0;
-
-// }
-
 /*
 	check if any of the connecting room is valid for the queue.
 
@@ -146,7 +20,7 @@
 	to add is the address of the room we will return to add on the queue
 */
 
-t_vertex		*nodes_to_add(t_adjvertex *queue, t_adjvertex *current_connections, t_vertex *to_add)
+t_vertex		*is_valid_vertex(t_adjvertex *queue, t_adjvertex *current_connections, t_vertex *to_add)
 {
 	t_vertex	*tmp;
 	t_adjvertex	*tmp_queue;
@@ -177,10 +51,10 @@ t_vertex		*nodes_to_add(t_adjvertex *queue, t_adjvertex *current_connections, t_
 }
 
 /*
-	add_nodes
+	add_nodes to the end of the queue
 */
 
-void	add_nodes(t_adjvertex *queue, t_vertex *to_add, int lvl)
+void	push_node(t_adjvertex *queue, t_vertex *to_add, int lvl)
 {
 	t_adjvertex		*tmp;
 	t_adjvertex		*new;
@@ -217,27 +91,27 @@ int		next_node(t_adjvertex **current, t_adjvertex **current_connections)
 }
 
 /*
-	Add correct nodes to the queue.
+	Add correct nodes to the queue and level them.
 */
 
-void	queue_add_vertex(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_connections)
+void	bfs_search(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_connections)
 {
 	t_vertex	*to_add;
 	int			i;
 
 	i = 0;
 	to_add = 0;
-	to_add = nodes_to_add(queue, current_connections, to_add);
+	to_add = is_valid_vertex(queue, current_connections, to_add);
 	while (to_add)
 	{
-		add_nodes(queue, to_add, current->vertex->lvl + 1);
+		push_node(queue, to_add, current->vertex->lvl + 1);
 		if (!next_node(&current, &current_connections))
 			return ;
-		to_add = nodes_to_add(queue, current_connections, to_add);
+		to_add = is_valid_vertex(queue, current_connections, to_add);
 	}
 	if (!next_node(&current, &current_connections))
 		return ;
-	queue_add_vertex(queue, current, current_connections);
+	bfs_search(queue, current, current_connections);
 
 }
 
@@ -251,7 +125,7 @@ void	queue_add_vertex(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *cur
 	the lvl is important to recognize that the end room is the end room.
 */
 
-void	bfs_search(t_graph *graph)
+void	init_queue(t_graph *graph)
 {
 	t_adjvertex	*queue;
 
@@ -261,36 +135,6 @@ void	bfs_search(t_graph *graph)
 	queue->vertex->lvl = -1;
 	graph->end_vertex->lvl = -2;
 	queue->next = 0;
-	queue_add_vertex(queue, queue, queue->vertex->adj_vertexes);
+	bfs_search(queue, queue, queue->vertex->adj_vertexes);
+	free_adjacent_list(queue);
 }
-
-// int     main(void)
-// {
-//     t_graph     graph;
-
-// 	// t_vertex	*tmp;
-// 	// t_adjvertex	*adjs;
-   
-//     test_map_alloc(&graph);
-
-// 	bfs_search(&graph);
-
-// 	// tmp = graph.top_vertex;
-// 	// while (tmp)
-// 	// {
-// 	// 	adjs = tmp->adj_vertexes;
-// 	// 	ft_putstr(tmp->name);
-// 	// 	ft_putstr(" connects to: ");
-// 	// 	while (adjs)
-// 	// 	{
-// 	// 		ft_putstr(adjs->vertex->name);
-// 	// 		ft_putchar(' ');
-// 	// 		adjs = adjs->next;
-// 	// 	}
-// 	// 	ft_putchar('\n');
-// 	// 	tmp = tmp->next;
-// 	// }
-	
-	
-//     return (0);
-// }

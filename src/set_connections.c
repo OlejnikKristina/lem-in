@@ -92,14 +92,6 @@ void	set_connections(t_graph *graph, char *first_edge)
 		if (line[0] != '#')
 		{
 			names = ft_strsplit(line, '-');
-<<<<<<< HEAD
-			// if (!ft_strstr(all_names, names[0]) || !ft_strstr(all_names, names[1]))
-			// {
-			// 	printf("room1 %s room2 %s\n", names[0], names[1]);
-			// 	error_generated(6, graph);
-			// }
-=======
->>>>>>> 5bf1bd957729c37f214ac7b9d0a09bfa25c643fc
 			graph_insert_edge(graph, names[0], names[1]);
 			graph_insert_edge(graph, names[1], names[0]);
 			if (names)

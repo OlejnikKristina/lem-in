@@ -102,11 +102,7 @@ char	*add_vertexes(t_graph *graph)
 		{
 			vertex_name = get_vertex_name(&line, graph);
 			graph_insert_vertex(graph, vertex_name);
-<<<<<<< HEAD
-		//	add_name_to_strlist(all_names, vertex_name);
-=======
 			ft_strdel(&vertex_name);
->>>>>>> 5bf1bd957729c37f214ac7b9d0a09bfa25c643fc
 		}
 		ft_strdel(&line);
 		get_next_line(0, &line);
@@ -121,13 +117,7 @@ bool	create_graph(t_graph *graph)
 	graph->end_vertex = NULL;
 	ft_bzero(graph, sizeof(graph));
 	graph->n_ants = get_ants_amount();
-<<<<<<< HEAD
-	first_conection = add_vertexes(graph, &all_names);
-	// printf("%s\n", all_names);
-	set_connections(graph, first_conection, all_names);
-=======
 	first_conection = add_vertexes(graph);
 	set_connections(graph, first_conection);
->>>>>>> 5bf1bd957729c37f214ac7b9d0a09bfa25c643fc
 	return (true);
 }

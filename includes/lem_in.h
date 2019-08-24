@@ -48,6 +48,13 @@ typedef struct			s_adjvertex
 
 }						t_adjvertex;
 
+typedef struct			s_paths
+{
+	int					length;
+	struct s_adjvertex	*path;
+	struct s_paths		*next;
+
+}						t_paths;
 
 typedef struct			s_vertex
 {
@@ -93,10 +100,14 @@ void					error_generated(int error_num, t_graph *graph);
 void					print_graph(t_vertex *top_vertex);
 bool					is_only_numbers(char *str);
 
+
+void					free_adjacent_list(t_adjvertex *list);
+
 /*
 	*********************** BFS ****************************
 */
 
-void	bfs_search(t_graph *graph);
+void					init_queue(t_graph *graph);
+
 
 #endif
