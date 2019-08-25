@@ -6,20 +6,22 @@
 #    By: krioliin <krioliin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/18 20:29:00 by krioliin       #+#    #+#                 #
-#    Updated: 2019/08/24 18:33:27 by krioliin      ########   odam.nl          #
+#    Updated: 2019/08/24 22:26:15 by krioliin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
+LIB			= ft_printf/libftprintf.a
 NAME		= lem-in
 SRC			= main.c errors_management.c \
-			create_graph.c get_ants_amount.c free_graph.c \
-			add_vertexes.c set_connections.c lem_in.c paths.c
+			create_graph.c get_ants_amount.c free_data.c \
+			add_vertexes.c set_connections.c lem_in.c \
+			find_paths.c print_result.c
 
 all: $(NAME)
 
 $(NAME):
 	@clang -g -Wall -Wextra -Werror -o $(NAME) \
-	$(addprefix src/, $(SRC)) -I includes/ libft/libft.a
+	$(addprefix src/, $(SRC)) -I includes/ $(LIB)
 	@echo "\033[0;32mLem-in successfully created\033[0m"
 
 fclean:

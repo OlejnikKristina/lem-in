@@ -6,7 +6,7 @@
 /*   By: kpereira <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 15:59:28 by kpereira       #+#    #+#                */
-/*   Updated: 2019/08/24 20:46:28 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/24 21:54:14 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,17 @@ void	bfs_search(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_c
 
 }
 
+t_adjvertex	*init_queue(t_graph *graph, t_adjvertex *queue)
+{
+	queue = (t_adjvertex *)malloc(sizeof(t_vertex));
+
+	queue->vertex = graph->top_vertex;
+	queue->vertex->lvl = -1;
+	graph->end_vertex->lvl = -2;
+	queue->next = 0;
+	return (queue);
+}
+
 /*
 	Initializes the queue.
 	Set the begin room in the beginning of the list.
@@ -125,32 +136,12 @@ void	bfs_search(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_c
 	the lvl is important to recognize that the end room is the end room.
 */
 
-void	init_queue(t_graph *graph)
+void	bfs(t_graph *graph)
 {
 	t_adjvertex	*queue;
 
-	queue = (t_adjvertex *)malloc(sizeof(t_vertex));
-
-	queue->vertex = graph->top_vertex;
-	queue->vertex->lvl = -1;
-	graph->end_vertex->lvl = -2;
-	queue->next = 0;
+	queue = NULL;
+	queue = init_queue(graph, queue);
 	bfs_search(queue, queue, queue->vertex->adj_vertexes);
-	find_paths(graph, queue);
 	free_adjacent_list(queue);
 }
-
-// void	init_queue(t_graph *graph, t_adjvertex **queue)
-// {
-// 	queue = (t_adjvertex *)malloc(sizeof(t_vertex));
-
-// 	queue->vertex = graph->top_vertex;
-// 	queue->vertex->lvl = -1;
-// 	graph->end_vertex->lvl = -2;
-// 	queue->next = 0;
-// }
-
-// void	bfs_search()
-// {
-
-// }

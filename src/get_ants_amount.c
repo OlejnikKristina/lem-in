@@ -6,26 +6,30 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/24 20:46:44 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/25 11:56:17 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	add_name_to_strlist(char **all_names, char *new_name)
+void	print_paths(t_paths *all_paths)
 {
-	if (*all_names)
+	t_paths		*path;
+	t_adjvertex	*adj_vertex;
+
+	path = all_paths;
+	adj_vertex = all_paths->path;
+	while (path)
 	{
-		if (!ft_strstr(*all_names, new_name))
+		printf("\n");
+		adj_vertex = path->path;
+		while (adj_vertex)
 		{
-			*all_names = ft_superjoin(all_names, new_name);
-			*all_names = ft_superjoin(all_names, "  ");
+			printf("(\033[1;33m%s\033[1;37m)", adj_vertex->vertex->name);
+			adj_vertex = adj_vertex->next;
 		}
-	}
-	else
-	{
-		*all_names = ft_strdup(new_name);
-		*all_names = ft_superjoin(all_names, "  ");
+		path = path->next;
+		printf("\n");
 	}
 }
 
@@ -74,7 +78,7 @@ int		get_ants_amount()
 	ants_amount = ft_atoi(line);
 	if (!is_only_numbers(line) || ants_amount <= 0)
 		simple_error_generated(2);
-	printf("%d\n", ants_amount);
+	printf("Ants amount: %d\n", ants_amount);
 	ft_strdel(&line);
 	return (ants_amount);
 }
