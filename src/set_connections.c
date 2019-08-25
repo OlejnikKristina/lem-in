@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 21:23:17 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/24 13:30:36 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/25 18:24:19 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ short	create_edge(t_adjvertex **vertex1_adjlist, t_vertex *vertex2)
 		error_generated(7, (t_graph *)vertex1_adjlist);
 	new_edge->vertex = vertex2;
 	new_edge->next = NULL;
+	new_edge->ant = 0;
 	(!adj_list) ? (*vertex1_adjlist = new_edge) : (adj_list->next = new_edge);
 	return (0);
 }

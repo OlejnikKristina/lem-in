@@ -6,7 +6,7 @@
 /*   By: kpereira <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/24 18:04:20 by kpereira       #+#    #+#                */
-/*   Updated: 2019/08/25 13:42:38 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/25 20:33:12 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	populate_path(t_paths *first_path, t_vertex *vertex)
 	first_path->path = (t_adjvertex *)malloc(sizeof(t_adjvertex));
 	first_path->path->vertex = vertex;
 	first_path->path->next = NULL;
+	first_path->path->printed = false;
 	first_path->next = NULL;
 	first_path->ant_num = 0;
 }
@@ -127,9 +128,29 @@ void	fill_paths(t_paths *paths)
 		head = head->next;
 	}
 }
+// 83 76 72 71 || 34 30 29
+int		get_paths_num(t_adjvertex *end_conection)
+{
+	t_adjvertex *end_adjlist;
+	int			amoun_conection;
+
+	amoun_conection = 0;
+	end_adjlist = end_conection;
+	while (end_adjlist)
+	{
+		end_adjlist = end_adjlist->next;
+		amoun_conection++;
+	}
+	return (amoun_conection);
+}
 
 void	find_paths(t_graph *graph, t_paths *paths)
 {
+	int paths_num;
+
+	paths_num = get_paths_num(graph->end_vertex->adj_vertexes);
+	paths_num = paths_num / 2;
+	printf("Paths num: %d\n", paths_num);
 	init_paths(paths);
 	start_path(graph->end_vertex->adj_vertexes, paths);
 	fill_paths(paths);

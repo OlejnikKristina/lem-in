@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/25 13:34:21 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/25 21:41:32 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,9 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
+# define LAST_ANT -1
+# define PATH_PASSED -2
 # include <stdio.h>
-
-// enum					e_colors
-// {
-// 						white, 
-// 						gray, 
-// 						black
-// };
 
 struct					s_vertex;
 struct					s_adjvertex;
@@ -41,6 +36,7 @@ typedef struct			s_paths
 
 typedef struct			s_adjvertex
 {
+	int					ant;
 	bool				printed;
 	struct s_vertex		*vertex;
 	struct s_adjvertex	*next;
@@ -94,7 +90,7 @@ int						get_ants_amount();
 void					print_result(t_paths *paths, t_vertex *start_vertex,
 						int ants_amount);
 void					print_paths(t_paths *all_paths);
-void					print_all_paths(t_paths *all_path,  char *end_room, int ants_amount);
+void					print_all_paths(t_paths *all_path, t_graph *graph);
 void					print_graph(t_vertex *top_vertex);
 void					free_data(t_graph *graph);
 void					simple_error_generated(int error);

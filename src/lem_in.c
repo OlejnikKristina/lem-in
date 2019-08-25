@@ -6,7 +6,7 @@
 /*   By: kpereira <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 15:59:28 by kpereira       #+#    #+#                */
-/*   Updated: 2019/08/24 21:54:14 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/25 17:06:36 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ void	push_node(t_adjvertex *queue, t_vertex *to_add, int lvl)
 	new->vertex = to_add;
 	new->vertex->lvl = lvl; 
 	while (tmp->next)
-	{
 		tmp = tmp->next;
-	}
 	tmp->next = new;
 	new->next = 0;
 }
@@ -118,7 +116,6 @@ void	bfs_search(t_adjvertex *queue, t_adjvertex *current, t_adjvertex *current_c
 t_adjvertex	*init_queue(t_graph *graph, t_adjvertex *queue)
 {
 	queue = (t_adjvertex *)malloc(sizeof(t_vertex));
-
 	queue->vertex = graph->top_vertex;
 	queue->vertex->lvl = -1;
 	graph->end_vertex->lvl = -2;
