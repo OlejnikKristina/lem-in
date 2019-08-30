@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/25 21:41:32 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/28 11:32:07 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ struct					s_adjvertex;
 typedef struct			s_paths
 {
 	int					length;
-	int					ant_num;
 	struct s_adjvertex	*path;
 	struct s_paths		*next;
 
@@ -36,10 +35,9 @@ typedef struct			s_paths
 
 typedef struct			s_adjvertex
 {
-	int					ant;
-	bool				printed;
 	struct s_vertex		*vertex;
 	struct s_adjvertex	*next;
+	struct s_adjvertex	*prev;
 
 }						t_adjvertex;
 
@@ -56,9 +54,18 @@ typedef struct			s_graph
 	int					n_ants;
 	int					n_vertexes;
 	int					n_edges;
+	int					n_paths;
 	t_vertex			*top_vertex;
 	t_vertex			*end_vertex;
 }						t_graph;
+
+typedef struct			s_ant
+{
+	int					number;
+	bool				arrived;
+	t_adjvertex			*path;
+}						t_ant;
+
 
 /*
 ** ************************** Create graph **********************************
@@ -87,8 +94,7 @@ void					find_paths(t_graph *graph, t_paths *paths);
 */
 
 int						get_ants_amount();
-void					print_result(t_paths *paths, t_vertex *start_vertex,
-						int ants_amount);
+void					print_result(t_paths *paths, t_graph *graph);
 void					print_paths(t_paths *all_paths);
 void					print_all_paths(t_paths *all_path, t_graph *graph);
 void					print_graph(t_vertex *top_vertex);

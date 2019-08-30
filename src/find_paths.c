@@ -6,7 +6,7 @@
 /*   By: kpereira <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/24 18:04:20 by kpereira       #+#    #+#                */
-/*   Updated: 2019/08/25 20:33:12 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/28 11:10:14 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	populate_path(t_paths *first_path, t_vertex *vertex)
 	first_path->path = (t_adjvertex *)malloc(sizeof(t_adjvertex));
 	first_path->path->vertex = vertex;
 	first_path->path->next = NULL;
-	first_path->path->printed = false;
 	first_path->next = NULL;
-	first_path->ant_num = 0;
 }
 
 
@@ -66,7 +64,6 @@ void	init_paths(t_paths *paths)
 	paths->length = 0;
 	paths->next = 0;
 	paths->path = 0;
-	paths->ant_num = 0;
 }
 
 void	chose_vertex_for_path(t_paths *path, t_adjvertex **adj_vertex, t_vertex **best_option)
@@ -146,11 +143,9 @@ int		get_paths_num(t_adjvertex *end_conection)
 
 void	find_paths(t_graph *graph, t_paths *paths)
 {
-	int paths_num;
-
-	paths_num = get_paths_num(graph->end_vertex->adj_vertexes);
-	paths_num = paths_num / 2;
-	printf("Paths num: %d\n", paths_num);
+	graph->n_paths = get_paths_num(graph->end_vertex->adj_vertexes);
+//	graph->n_paths /= 2;
+	printf("Paths num: %d\n", graph->n_paths);
 	init_paths(paths);
 	start_path(graph->end_vertex->adj_vertexes, paths);
 	fill_paths(paths);

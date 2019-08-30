@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/25 20:11:04 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/28 20:02:36 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	print_paths(t_paths *all_paths)
 {
 	t_paths		*path;
 	t_adjvertex	*adj_vertex;
+	t_adjvertex	*last;
 
 	path = all_paths;
 	adj_vertex = all_paths->path;
@@ -26,8 +27,15 @@ void	print_paths(t_paths *all_paths)
 		while (adj_vertex)
 		{
 			printf("(\033[1;33m%s\033[1;37m)", adj_vertex->vertex->name);
+			last = adj_vertex;
 			adj_vertex = adj_vertex->next;
 		}
+		// while (last)
+		// {
+		// 	printf("(\033[1;35m%s\033[1;37m)", last->vertex->name);
+		// 	printf("Last elem %p las prev %p, \n", last, last->prev);
+		// 	last = last->prev;
+		// }
 		path = path->next;
 		printf("\n");
 	}
@@ -69,10 +77,11 @@ bool	is_only_numbers(char *str)
 int		get_ants_amount()
 {
 	char	*line;
+//	char	*flow_ten = "maps/flow_ten.txt";
 	int		ants_amount;
 
 	close(0);
-	open("maps/flow_ten.txt", O_RDONLY);
+	open("maps/subject-2.txt", O_RDONLY);
 	if (get_next_line(0, &line) == -1 || line[0] == '\0')
 		simple_error_generated(1);
 	ants_amount = ft_atoi(line);

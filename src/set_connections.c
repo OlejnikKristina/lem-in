@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 21:23:17 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/25 18:24:19 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/28 10:39:43 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ short	create_edge(t_adjvertex **vertex1_adjlist, t_vertex *vertex2)
 		error_generated(7, (t_graph *)vertex1_adjlist);
 	new_edge->vertex = vertex2;
 	new_edge->next = NULL;
-	new_edge->ant = 0;
-	(!adj_list) ? (*vertex1_adjlist = new_edge) : (adj_list->next = new_edge);
+	(adj_list) ? (adj_list->next = new_edge) : (*vertex1_adjlist = new_edge);
 	return (0);
 }
 
@@ -69,7 +68,7 @@ short	graph_insert_edge(t_graph *graph, char *name1, char *name2)
 	head = graph->top_vertex;
 	vertex1 = NULL;
 	vertex2 = NULL;
-	while (head)
+	while (head && (!vertex1 || !vertex2))
 	{
 		vertex1 = (!ft_strcmp(head->name, name1)) ? head : vertex1;
 		vertex2 = (!ft_strcmp(head->name, name2)) ? head : vertex2;
