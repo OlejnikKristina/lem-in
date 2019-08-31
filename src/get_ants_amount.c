@@ -6,13 +6,43 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/28 20:02:36 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/30 19:55:06 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+t_adjvertex	*get_first_room(t_adjvertex *path)
+{
+	t_adjvertex *vertex;
+
+	vertex = path;
+	while (vertex->next)
+		vertex = vertex->next;
+	return (vertex);
+}
+
 void	print_paths(t_paths *all_paths)
+{
+	t_paths		*path;
+	t_adjvertex	*head;
+
+	path = all_paths;
+	while (path)
+	{
+		printf("\n");
+		head = get_first_room(path->path);
+		while (head)
+		{
+			printf("(\033[1;35m%s\033[1;37m)", head->vertex->name);
+			head = head->prev;
+		}
+		path = path->next;
+	}
+	printf("\n\n");
+}
+
+void	print_reverese_paths(t_paths *all_paths)
 {
 	t_paths		*path;
 	t_adjvertex	*adj_vertex;
@@ -26,18 +56,12 @@ void	print_paths(t_paths *all_paths)
 		adj_vertex = path->path;
 		while (adj_vertex)
 		{
-			printf("(\033[1;33m%s\033[1;37m)", adj_vertex->vertex->name);
+			printf("(\033[1;35m%s\033[1;37m)", adj_vertex->vertex->name);
 			last = adj_vertex;
 			adj_vertex = adj_vertex->next;
 		}
-		// while (last)
-		// {
-		// 	printf("(\033[1;35m%s\033[1;37m)", last->vertex->name);
-		// 	printf("Last elem %p las prev %p, \n", last, last->prev);
-		// 	last = last->prev;
-		// }
-		path = path->next;
 		printf("\n");
+		path = path->next;
 	}
 }
 
@@ -81,7 +105,7 @@ int		get_ants_amount()
 	int		ants_amount;
 
 	close(0);
-	open("maps/subject-2.txt", O_RDONLY);
+	open("maps/subject-1.txt", O_RDONLY);
 	if (get_next_line(0, &line) == -1 || line[0] == '\0')
 		simple_error_generated(1);
 	ants_amount = ft_atoi(line);

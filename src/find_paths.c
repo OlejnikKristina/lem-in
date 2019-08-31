@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+	/* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
 /*   find_paths.c                                       :+:    :+:            */
@@ -6,7 +6,7 @@
 /*   By: kpereira <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/24 18:04:20 by kpereira       #+#    #+#                */
-/*   Updated: 2019/08/28 11:10:14 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/30 18:07:09 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,9 @@ int		get_paths_num(t_adjvertex *end_conection)
 void	find_paths(t_graph *graph, t_paths *paths)
 {
 	graph->n_paths = get_paths_num(graph->end_vertex->adj_vertexes);
-//	graph->n_paths /= 2;
 	printf("Paths num: %d\n", graph->n_paths);
 	init_paths(paths);
 	start_path(graph->end_vertex->adj_vertexes, paths);
 	fill_paths(paths);
-	print_paths(paths);
+//	print_reverese_paths(paths);
 }
