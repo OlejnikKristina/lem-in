@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/31 11:57:39 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/31 21:38:10 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ struct					s_adjvertex;
 
 typedef struct			s_paths
 {
-	int					length;		//???
-	int					ant_amount;//print 2
+	int					length;
+	int					ant_amount;
 	struct s_adjvertex	*first_room;
 	struct s_adjvertex	*path;
 	struct s_paths		*next;
@@ -63,6 +63,9 @@ typedef struct			s_graph
 	t_vertex			*end_vertex;
 }						t_graph;
 
+char					*last_room_name;
+int						ant_arrived;
+
 // typedef struct			s_ant
 // {
 // 	int					number;
@@ -87,32 +90,36 @@ bool					read_vertexes(char *line);
 void					set_connections(t_graph *graph, char *first_conection);
 
 /*
-	******************************* BFS ****************************
+	************************* Find the best paths ****************************
 */
 
 void					bfs(t_graph *graph);
 void					find_paths(t_graph *graph, t_paths *paths);
+int						get_paths_amount(t_paths *path_head);
+t_paths					*sort_paths(t_paths **paths, int count);
 
 /*
-** ********************** Addtional functions ********************************
+** ************************* Addtional functions ********************************
 */
 
 int						get_ants_amount();
-
-void					print_reverese_paths(t_paths *all_paths);
-void					print_all_paths(t_paths *all_path, t_graph *graph);
-void					print_graph(t_vertex *top_vertex);
-void					print_paths(t_paths *all_paths);
-void					print_result(t_paths *paths, t_graph *graph);
 
 void					free_data(t_graph *graph);
 void					simple_error_generated(int error);
 void					error_generated(int error_num, t_graph *graph);
 bool					is_only_numbers(char *str);
 void					free_adjacent_list(t_adjvertex *list);
-
 t_adjvertex				*get_first_room(t_adjvertex *path);
 t_adjvertex				*get_first_room_add_end_room(t_adjvertex *path, t_vertex *end_vertex);
 
+/*
+** ******************************* Printing *************************************
+*/
+
+void					print_reverese_paths(t_paths *all_paths);
+void					print_all_paths(t_paths *all_path, t_graph *graph);
+void					print_graph(t_vertex *top_vertex);
+void					print_paths(t_paths *all_paths);
+void					print_result(t_paths *paths, t_graph *graph);
 
 #endif

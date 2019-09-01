@@ -31,7 +31,6 @@ void	populate_path(t_paths *first_path, t_vertex *vertex)
 	first_path->next = NULL;
 }
 
-
 void	add_path(t_paths *all_paths, t_vertex *vertex)
 {
 	t_paths	*new_path;
@@ -57,13 +56,6 @@ void	start_path(t_adjvertex *end_adj_vertex, t_paths *paths)
 			add_path(paths, tmp->vertex);
 		tmp = tmp->next;
 	}
-}
-
-void	init_paths(t_paths *paths)
-{
-	paths->length = 0;
-	paths->next = 0;
-	paths->path = 0;
 }
 
 void	chose_vertex_for_path(t_paths *path, t_adjvertex **adj_vertex, t_vertex **best_option)
@@ -126,27 +118,11 @@ void	fill_paths(t_paths *paths)
 	}
 }
 // 83 76 72 71 || 34 30 29
-int		get_paths_num(t_adjvertex *end_conection)
-{
-	t_adjvertex *end_adjlist;
-	int			amoun_conection;
-
-	amoun_conection = 0;
-	end_adjlist = end_conection;
-	while (end_adjlist)
-	{
-		end_adjlist = end_adjlist->next;
-		amoun_conection++;
-	}
-	return (amoun_conection);
-}
-
 void	find_paths(t_graph *graph, t_paths *paths)
 {
-	graph->n_paths = get_paths_num(graph->end_vertex->adj_vertexes);
-	printf("Paths num: %d\n", graph->n_paths);
-	init_paths(paths);
+	ft_bzero(paths, sizeof(paths));
 	start_path(graph->end_vertex->adj_vertexes, paths);
 	fill_paths(paths);
-//	print_reverese_paths(paths);
+	printf(" Paths num: %d\n", get_paths_amount(paths));
+	// print_reverese_paths(paths);
 }

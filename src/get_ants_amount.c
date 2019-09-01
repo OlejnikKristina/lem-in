@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/30 19:55:06 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/08/31 21:53:35 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ void	print_paths(t_paths *all_paths)
 	{
 		printf("\n");
 		head = get_first_room(path->path);
+		printf("Path len %d\n", path->length);
 		while (head)
 		{
 			printf("(\033[1;35m%s\033[1;37m)", head->vertex->name);
 			head = head->prev;
-		}
+		}printf("\n");
 		path = path->next;
 	}
 	printf("\n\n");
@@ -54,6 +55,7 @@ void	print_reverese_paths(t_paths *all_paths)
 	{
 		printf("\n");
 		adj_vertex = path->path;
+		printf("Path len %d\n", path->length);
 		while (adj_vertex)
 		{
 			printf("(\033[1;35m%s\033[1;37m)", adj_vertex->vertex->name);
@@ -97,15 +99,23 @@ bool	is_only_numbers(char *str)
 	}
 	return (true);
 }
-
+// Don't forget to add -Wall -Wextra -Werror to ft_printf makefile
 int		get_ants_amount()
 {
 	char	*line;
-//	char	*flow_ten = "maps/flow_ten.txt";
+	char	*flow_one = "maps/flow_one.c";
+	char	*flow_ten = "maps/flow_ten.txt";
+	char	*flow_thousand = "maps/flow_thousand.txt";
+	char	*big = "maps/big.txt";
+	char	*big2 = "maps/big.txt";
+	char	*big_superposition = "maps/big-superposition.txt";
+	char	*subject_one = "maps/subject-1.txt";
+	char	*snake_in_stairs = "maps/snake_in_stairs.txt";
+	char	*normal_map1 = "maps/normal_map1.txt";
 	int		ants_amount;
 
 	close(0);
-	open("maps/subject-1.txt", O_RDONLY);
+	open(snake_in_stairs, O_RDONLY);
 	if (get_next_line(0, &line) == -1 || line[0] == '\0')
 		simple_error_generated(1);
 	ants_amount = ft_atoi(line);

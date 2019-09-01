@@ -1,4 +1,4 @@
-42
+10
 ##start
 start 23 3
 2 start6 7
