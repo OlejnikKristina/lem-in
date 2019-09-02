@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/31 21:53:35 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/01 18:26:46 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ int		get_ants_amount()
 {
 	char	*line;
 	char	*flow_one = "maps/flow_one.c";
-	char	*flow_ten = "maps/flow_ten.txt";
-	char	*flow_thousand = "maps/flow_thousand.txt";
+	char	*flow_ten = "maps/flow_ten.txt";// OK
+	char	*flow_thousand = "maps/flow_thousand.txt";// OK
 	char	*big = "maps/big.txt";
 	char	*big2 = "maps/big.txt";
 	char	*big_superposition = "maps/big-superposition.txt";
@@ -115,7 +115,7 @@ int		get_ants_amount()
 	int		ants_amount;
 
 	close(0);
-	open(snake_in_stairs, O_RDONLY);
+	open(big, O_RDONLY);
 	if (get_next_line(0, &line) == -1 || line[0] == '\0')
 		simple_error_generated(1);
 	ants_amount = ft_atoi(line);

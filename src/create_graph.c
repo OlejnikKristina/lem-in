@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/30 17:49:43 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/02 10:02:05 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_vertex	*create_vertex(char *name)
 	new_vertex->name = ft_strdup(name);
 	new_vertex->lvl = 0;
 	new_vertex->ant = 0;
+	ft_bzero(new_vertex->ants, sizeof(new_vertex->ants)); //Unessesery
 	new_vertex->next = NULL;
 	return (new_vertex);
 }

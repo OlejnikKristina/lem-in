@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/31 21:38:10 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/02 10:00:48 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct			s_vertex
 {
 	int					lvl;
 	int					ant;
+	int					ants[10];
 	char				*name;
 	struct s_vertex		*next;
 	struct s_adjvertex	*adj_vertexes;
@@ -64,7 +65,7 @@ typedef struct			s_graph
 }						t_graph;
 
 char					*last_room_name;
-int						ant_arrived;
+int						count_ants_arrived;
 
 // typedef struct			s_ant
 // {
