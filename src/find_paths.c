@@ -58,20 +58,21 @@ void	start_path(t_adjvertex *end_adj_vertex, t_paths *paths)
 	}
 }
 
-void	chose_vertex_for_path(t_paths *path, t_adjvertex **adj_vertex, t_vertex **best_option)
+bool	chose_vertex_for_path(t_paths *create_path, t_adjvertex **adj_vertex, t_vertex **best_option, t_paths *prev)
 {
-	t_adjvertex	*tmp;
+	t_adjvertex	*path;
 
-	tmp = path->path;
-	while (tmp->next)
-		tmp = tmp->next;
-	(*adj_vertex) = tmp->vertex->adj_vertexes;
+	path = create_path->path;
+	while (path->next)
+		path = path->next;
+	(*adj_vertex) = path->vertex->adj_vertexes;
 	(*best_option) = (*adj_vertex)->vertex;
 	if ((*best_option)->lvl == -2)
 	{
 		(*best_option) = (*adj_vertex)->next->vertex;
 		(*adj_vertex) = (*adj_vertex)->next;		
 	}
+	return (true);
 }
 
 void	add_best_option(t_adjvertex *path, t_vertex *best_vertex)
@@ -82,18 +83,19 @@ void	add_best_option(t_adjvertex *path, t_vertex *best_vertex)
 	while (head->next)
 		head = head->next;
 	head->next = (t_adjvertex *)malloc(sizeof(t_adjvertex));
+	best_vertex->visited = true;
 	head->next->vertex = best_vertex;
 	head->next->next = NULL;
 }
 
-void	add_step_to_path(t_paths *path)
+void	add_step_to_path(t_paths *path, t_paths *prev)
 {
 	t_adjvertex	*adj_vertex;
 	t_vertex	*best_option;
 
 	best_option = NULL;
 	adj_vertex = NULL;
-	chose_vertex_for_path(path, &adj_vertex, &best_option);
+ 	chose_vertex_for_path(path, &adj_vertex, &best_option, prev);
 	while (adj_vertex)
 	{
 		if ((adj_vertex->vertex->lvl < best_option->lvl) && adj_vertex->vertex->lvl != -2)
@@ -102,18 +104,21 @@ void	add_step_to_path(t_paths *path)
 	}
 	add_best_option(path->path, best_option);
 	path->length++;
-	if (best_option->lvl != -1)
-		add_step_to_path(path);
+	if (best_option->lvl != -1 && path->length < 11)
+		add_step_to_path(path, prev);
 }
 
 void	fill_paths(t_paths *paths)
 {
 	t_paths		*head;
+	t_paths		*prev;
 
 	head = paths;
+	prev = NULL;
 	while (head)
 	{
-		add_step_to_path(head);
+		add_step_to_path(head, prev);
+		prev = head;
 		head = head->next;
 	}
 }
@@ -124,5 +129,4 @@ void	find_paths(t_graph *graph, t_paths *paths)
 	start_path(graph->end_vertex->adj_vertexes, paths);
 	fill_paths(paths);
 	printf(" Paths num: %d\n", get_paths_amount(paths));
-	// print_reverese_paths(paths);
 }

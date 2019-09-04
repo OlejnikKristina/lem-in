@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/02 10:00:48 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/04 11:25:55 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
+# define MAX_ANTS_IN_ONE_ROOM 10
 # define LAST_ANT -1
 # define PATH_PASSED -2
 # include <stdio.h>
@@ -48,6 +49,7 @@ typedef struct			s_vertex
 {
 	int					lvl;
 	int					ant;
+	bool				visited;
 	int					ants[10];
 	char				*name;
 	struct s_vertex		*next;
@@ -66,14 +68,6 @@ typedef struct			s_graph
 
 char					*last_room_name;
 int						count_ants_arrived;
-
-// typedef struct			s_ant
-// {
-// 	int					number;
-// 	bool				arrived;
-// 	t_adjvertex			*path;
-// }						t_ant;
-
 
 /*
 ** ************************** Create graph **********************************

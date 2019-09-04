@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/30 16:45:57 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/01 18:32:40 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/04 11:23:56 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ void	distribute_ants(t_paths *all_paths, int ants_amount)
 		path = path->next;
 	}
 	path = all_paths;
+	if (path->path == NULL)
+		return ;
 	while (i < ants_amount)
 	{
+
 		path->ant_amount += 1;
 		path = path->next;
 		i++;
@@ -105,19 +108,17 @@ bool		print_output(int ant_name, char *room_name, int total_ants)
 
 	if (!ft_strcmp(last_room_name, room_name))
 	{
-		// ft_printf("%{WHITE_B}L%{BLUE_B}%d%{WHITE_B}-%{GREEN_B}%s ",
-		// ant_name, room_name);
+		ft_printf("%{WHITE_B}L%{BLUE_B}%d%{WHITE_B}-%{GREEN_B}%s ",
+		ant_name, room_name);
 		ants_arrived++;
 		count_ants_arrived++;
-		if (count_ants_arrived == 330)
-			count_ants_arrived = 330;
 		if ((total_ants - (ants_arrived + 1)) <= 0)
 			return (true);
 	}
 	else
 	{
-		// ft_printf("%{WHITE_B}L%{BLUE_B}%d%{WHITE_B}-%{PINK_B}%s ",
-		// ant_name, room_name);
+		ft_printf("%{WHITE_B}L%{BLUE_B}%d%{WHITE_B}-%{PINK_B}%s ",
+		ant_name, room_name);
 	}
 	return (false);
 }
@@ -125,21 +126,28 @@ bool		print_output(int ant_name, char *room_name, int total_ants)
 bool		send_first_ant(t_paths *all_paths, int *ant_name, int total_ants)
 {
 	t_paths	*path;
+	int		i;
 
+	i = 0;
 	*ant_name = 1;
 	path = all_paths;
+	if (path->first_room->vertex->next == NULL)
+		exit(0);
 	while (path)
 	{
 		if (0 < path->ant_amount)
 		{
-			path->first_room->vertex->ant = *ant_name;
+			while (path->first_room->vertex->ants[i] && i < 9)
+				i++;
+			path->first_room->vertex->ants[i] = *ant_name;
 			if (path->first_room->vertex->ant)
 			{
 				printf("Ant num %d in room %s replace by ant num %d\n",
 				path->first_room->vertex->ant, path->first_room->vertex->name, *ant_name);
 			}
-			if (print_output(*ant_name, path->first_room->vertex->name, total_ants))
+			if (i == 0 && print_output(*ant_name, path->first_room->vertex->name, total_ants))
 				return (true);
+			i = 0;
 			path->ant_amount -= 1;
 			*ant_name += 1;
 		}
@@ -152,31 +160,54 @@ bool		send_first_ant(t_paths *all_paths, int *ant_name, int total_ants)
 bool	send_next_ant(t_paths *path, int *last_ant_name, int total_ants)
 {
 	t_vertex	*room;
+	int			i;
 
+	i = 0;
 	room = path->first_room->vertex;
 	if (0 < path->ant_amount)
 	{
-		room->ant = *last_ant_name;
-		if (print_output(*last_ant_name, room->name, total_ants))
-			return (true);
-		// ft_printf("%{WHITE_B}L-%{YELLOW_B}%d%{WHITE_B}-%{PINK_B}%s ",
-		// 	*last_ant_name, path->first_room->vertex->name);
+		while (room->ants[i] && i < 9)
+			i++;
+		room->ants[i] = *last_ant_name;
+		// if (print_output(*last_ant_name, room->name, total_ants))
+		// 	return (true);
+		ft_printf("%{WHITE_B}L%{YELLOW_B}%d%{WHITE_B}-%{PINK_B}%s ",
+			*last_ant_name, path->first_room->vertex->name);
 		*last_ant_name += 1;
 		path->ant_amount -= 1;
 	}
 	return (false);
 }
 
-bool	move_ant_forward(t_adjvertex *room, t_paths *path, int total_ants)
+void	put_ant_in_next_room(int next_room[10], int current_room[10])
+{
+	int		i;
+
+	i = 0;
+	while (next_room[i] && i < 9)
+		i++;
+	next_room[i] = current_room[0];
+	i = 1;
+	while (current_room[i] && i < 10)
+	{
+		current_room[i - 1] = current_room[i];
+		i++;
+	}
+	current_room[i - 1] = 0;
+	// while (i < 10)
+	// {
+	// 	current_room[i] = 0;
+	// 	i++;
+	// }
+}
+
+bool	move_ant_to_next_room(t_adjvertex *room, t_paths *path, int total_ants)
 {
 	if (room->prev)
 	{
-		room->prev->vertex->ant = room->vertex->ant;
-		if (print_output(room->vertex->ant, room->prev->vertex->name, total_ants))
+		if (print_output(room->vertex->ants[0], room->prev->vertex->name, total_ants))
 			return (true);
-		room->vertex->ant = 0;
-			// if (!room->prev->prev)
-			// 	room->prev->vertex->ant = 0;
+		put_ant_in_next_room(room->prev->vertex->ants, room->vertex->ants);
 	}
 	return (false);
 }
@@ -188,12 +219,12 @@ bool	check_path(t_paths *path, int *prev_ant_name, int total_ants)
 	room = path->path;
 	while (room->next)
 	{
-		if (room->vertex->ant)
+		if (room->vertex->ants[0])
 		{
-			if (move_ant_forward(room, path, total_ants))
+			if (move_ant_to_next_room(room, path, total_ants))
 				return (true);
-			if (!room->next->vertex->ant)
-				break ;
+			// if (!room->next->vertex->ants[0])
+			// 	break ;
 		}
 		room = room->next;
 	}
@@ -211,7 +242,7 @@ void	print_result(t_paths *paths, t_graph *graph)
 	path = paths;
 	ants_arrived = false;
 	count_ants_arrived = 0;
-	print_reverese_paths(paths);
+//	print_reverese_paths(paths);
 	add_end_room(paths, graph->end_vertex);
 	distribute_ants(paths, graph->n_ants);
 	ants_arrived = send_first_ant(paths, &previous_ant, graph->n_ants);
@@ -219,7 +250,7 @@ void	print_result(t_paths *paths, t_graph *graph)
 	{
 		ants_arrived = check_path(path, &previous_ant, graph->n_ants);
 		path = path->next;
-		if (path == NULL) //&& ft_printf("\n"))
+		if (path == NULL && ft_printf("\n"))
 			path = paths;
 		i++;
 		if (1500 < i)
