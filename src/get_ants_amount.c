@@ -115,7 +115,7 @@ int		get_ants_amount()
 	int		ants_amount;
 
 	close(0);
-	open("maps/g", O_RDONLY);
+	open(big, O_RDONLY);
 	if (get_next_line(0, &line) == -1 || line[0] == '\0')
 		simple_error_generated(1);
 	ants_amount = ft_atoi(line);

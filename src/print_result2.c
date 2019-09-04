@@ -242,7 +242,7 @@ void	print_result(t_paths *paths, t_graph *graph)
 	path = paths;
 	ants_arrived = false;
 	count_ants_arrived = 0;
-//	print_reverese_paths(paths);
+	print_reverese_paths(paths);
 	add_end_room(paths, graph->end_vertex);
 	distribute_ants(paths, graph->n_ants);
 	ants_arrived = send_first_ant(paths, &previous_ant, graph->n_ants);
@@ -253,7 +253,7 @@ void	print_result(t_paths *paths, t_graph *graph)
 		if (path == NULL && ft_printf("\n"))
 			path = paths;
 		i++;
-		if (1500 < i)
+		if (3500 < i)
 			break ;
 	}
 	print_paths(paths);

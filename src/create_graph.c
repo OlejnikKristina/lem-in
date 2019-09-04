@@ -20,8 +20,9 @@ t_vertex	*create_vertex(char *name)
 	if (!new_vertex)
 		return (NULL);
 	new_vertex->name = ft_strdup(name);
-	new_vertex->lvl = 0;
 	new_vertex->ant = 0;
+	new_vertex->p_size = 0;
+	new_vertex->parents = 0;
 	new_vertex->visited = false;
 	ft_bzero(new_vertex->ants, sizeof(new_vertex->ants)); //Unessesery
 	new_vertex->next = NULL;

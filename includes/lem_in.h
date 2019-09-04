@@ -47,7 +47,8 @@ typedef struct			s_adjvertex
 
 typedef struct			s_vertex
 {
-	int					lvl;
+	int					*parents;
+	int					p_size;
 	int					ant;
 	bool				visited;
 	int					ants[10];
@@ -88,8 +89,8 @@ void					set_connections(t_graph *graph, char *first_conection);
 	************************* Find the best paths ****************************
 */
 
-void					bfs(t_graph *graph);
-void					find_paths(t_graph *graph, t_paths *paths);
+void					bfs(t_graph *graph, t_paths	*paths);
+void					restore_path(t_graph *graph, t_vertex *vertex, t_paths *paths);
 int						get_paths_amount(t_paths *path_head);
 t_paths					*sort_paths(t_paths **paths, int count);
 

@@ -15,8 +15,8 @@ LIB			= ft_printf/libftprintf.a
 NAME		= lem-in
 SRC			= main.c errors_management.c \
 			create_graph.c get_ants_amount.c free_data.c \
-			add_vertexes.c set_connections.c lem_in.c \
-			find_paths.c print_result2.c sort_paths.c
+			add_vertexes.c set_connections.c bfs.c \
+			path_restore.c print_result2.c sort_paths.c
 
 all: $(NAME)
 
