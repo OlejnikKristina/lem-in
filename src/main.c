@@ -26,8 +26,8 @@ int		main(void)
 	holder = sort_paths(&holder, paths_amount + paths_amount / 2);
 	print_result(holder, &graph);
 
-	print_paths(&paths);
+//	print_paths(&paths);
 //	print_graph(graph.top_vertex);
-	free_data(&graph);
+	free_data(&graph, &paths);
 	return (0);
 }

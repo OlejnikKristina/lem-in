@@ -101,7 +101,7 @@ t_paths					*sort_paths(t_paths **paths, int count);
 
 int						get_ants_amount();
 
-void					free_data(t_graph *graph);
+void					free_data(t_graph *graph, t_paths *paths);
 void					simple_error_generated(int error);
 void					error_generated(int error_num, t_graph *graph);
 bool					is_only_numbers(char *str);

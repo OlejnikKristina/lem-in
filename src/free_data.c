@@ -37,6 +37,7 @@ void	free_graph(t_graph *graph)
 	while (head)
 	{
 		free_adjacent_list(head->adj_vertexes);
+		free(head->parents);
 		(head->name) ? ft_strdel(&head->name) : 1;
 		temp = head->next;
 		(head) ? free(head) : 1;
@@ -44,7 +45,27 @@ void	free_graph(t_graph *graph)
 	}
 }
 
-void	free_data(t_graph *graph)
+void	free_paths(t_paths *paths)
+{
+	t_paths	*head;
+	t_paths	*tmp;
+
+	head = paths->next;
+	tmp = head->next;
+	free_adjacent_list(paths->path);
+	while (tmp)
+	{
+		free_adjacent_list(head->path);
+		free(head);
+		head = tmp;
+		tmp = tmp->next;
+	}
+	free_adjacent_list(head->path);
+	free(head);
+}
+
+void	free_data(t_graph *graph, t_paths *paths)
 {
 	free_graph(graph);
+	free_paths(paths);
 }

@@ -20,96 +20,96 @@
 	orignal 87 use up to 6
 */
 
-// void	shortorization(t_paths *all_paths)
-// {
-// 	t_paths		*head;
-// 	t_adjvertex	*a;
-// 	t_adjvertex	*b;
-// 	t_adjvertex	*temp;
-// 	int			i;
+void	shortorization(t_paths *all_paths)
+{
+	t_paths		*head;
+	t_adjvertex	*a;
+	t_adjvertex	*b;
+	t_adjvertex	*temp;
+	int			i;
 
-// 	head = all_paths;
-// 	while (head)
-// 	{
-// 		if (100 <= head->length - 20)
-// 		{
-// 			i = 0;
-// 			a = head->path;
-// 			while (i <= 30)
-// 			{
-// 				a = a->next;
-// 				i++;
-// 			}
-// 			b = a->next;// [elem1] [elem2]
-// 			while (i <= 110)
-// 			{
-// 				temp = b;
-// 				b = b->next;
-// 				//free(temp);
-// 				i++;
-// 			}
-// 			a->next = temp;
-// 		}
-// 		else if (55 <= head->length - 20)
-// 		{
-// 			i = 0;
-// 			a = head->path;
-// 			while (i <= 20)
-// 			{
-// 				a = a->next;
-// 				i++;
-// 			}
-// 			b = a->next;// [elem1] [elem2]
-// 			while (i <= 70)
-// 			{
-// 				temp = b;
-// 				b = b->next;
-// 				//free(temp);
-// 				i++;
-// 			}
-// 			a->next = temp;
-// 		}
-// 		else if (20 <= head->length - 20)
-// 		{
-// 			i = 0;
-// 			a = head->path;
-// 			while (i <= 18)
-// 			{
-// 				a = a->next;
-// 				i++;
-// 			}
-// 			b = a->next;// [elem1] [elem2]
-// 			while (i <= 35)
-// 			{
-// 				temp = b;
-// 				b = b->next;
-// 				//free(temp);
-// 				i++;
-// 			}
-// 			a->next = temp;
-// 		}
-// 		else if (10 <= head->length - 20)
-// 		{
-// 			i = 0;
-// 			a = head->path;
-// 			while (i <= 18)
-// 			{
-// 				a = a->next;
-// 				i++;
-// 			}
-// 			b = a->next;// [elem1] [elem2]
-// 			while (i <= 25)
-// 			{
-// 				temp = b;
-// 				b = b->next;
-// 				//free(temp);
-// 				i++;
-// 			}
-// 			a->next = temp;
-// 		}
-// 		head = head->next;
-// 	}
-// }
+	head = all_paths;
+	while (head)
+	{
+		if (100 <= head->length - 20)
+		{
+			i = 0;
+			a = head->path;
+			while (i <= 30)
+			{
+				a = a->next;
+				i++;
+			}
+			b = a->next;// [elem1] [elem2]
+			while (i <= 110)
+			{
+				temp = b;
+				b = b->next;
+				//free(temp);
+				i++;
+			}
+			a->next = temp;
+		}
+		else if (55 <= head->length - 20)
+		{
+			i = 0;
+			a = head->path;
+			while (i <= 20)
+			{
+				a = a->next;
+				i++;
+			}
+			b = a->next;// [elem1] [elem2]
+			while (i <= 70)
+			{
+				temp = b;
+				b = b->next;
+				//free(temp);
+				i++;
+			}
+			a->next = temp;
+		}
+		else if (20 <= head->length - 20)
+		{
+			i = 0;
+			a = head->path;
+			while (i <= 18)
+			{
+				a = a->next;
+				i++;
+			}
+			b = a->next;// [elem1] [elem2]
+			while (i <= 35)
+			{
+				temp = b;
+				b = b->next;
+				//free(temp);
+				i++;
+			}
+			a->next = temp;
+		}
+		// else if (10 <= head->length - 20)
+		// {
+		// 	i = 0;
+		// 	a = head->path;
+		// 	while (i <= 18)
+		// 	{
+		// 		a = a->next;
+		// 		i++;
+		// 	}
+		// 	b = a->next;// [elem1] [elem2]
+		// 	while (i <= 25)
+		// 	{
+		// 		temp = b;
+		// 		b = b->next;
+		// 		//free(temp);
+		// 		i++;
+		// 	}
+		// 	a->next = temp;
+		// }
+		head = head->next;
+	}
+}
 
 void	distribute_ants(t_paths *all_paths, int ants_amount, short max_paths_num)
 {
@@ -121,7 +121,7 @@ void	distribute_ants(t_paths *all_paths, int ants_amount, short max_paths_num)
 	path_num = 1;
 	path = all_paths;
 	printf("---------------------------------------------------------------------\n");
-//	shortorization(all_paths);
+	//shortorization(all_paths);
 	while (path)
 	{
 		path->ant_amount = 0;
@@ -136,7 +136,7 @@ void	distribute_ants(t_paths *all_paths, int ants_amount, short max_paths_num)
 		path = path->next;
 		i++;
 		path_num++;
-		if (max_paths_num < path_num || path == NULL)
+		if (max_paths_num <= path_num || path == NULL)
 		{
 			path = all_paths;
 			path_num = 1;
@@ -332,7 +332,6 @@ void	print_result(t_paths *paths, t_graph *graph)
 	ants_arrived = false;
 	count_ants_arrived = 0;
 	last_room_name = ft_strdup(graph->end_vertex->name);
-	//print_reverese_paths(paths);
 	distribute_ants(paths, graph->n_ants,
 	choose_shortest_paths(paths, graph->n_ants, get_paths_amount(paths)));
 	add_end_room(paths, graph->end_vertex);
