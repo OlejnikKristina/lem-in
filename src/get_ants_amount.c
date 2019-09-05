@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 12:53:07 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 15:09:09 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,63 +30,17 @@ void	print_paths(t_paths *all_paths)
 	path = all_paths;
 	while (path)
 	{
-		printf("\n");
+		ft_putchar('\n');
 		head = get_first_room(path->path);
-		printf("Path len %d\n", path->length);
+		ft_printf("Path len %d\n", path->length);
 		while (head)
 		{
-			printf("(\033[1;35m%s\033[1;37m)", head->vertex->name);
+			ft_printf("(\033[1;35m%s\033[1;37m)", head->vertex->name);
 			head = head->prev;
 		}printf("\n");
 		path = path->next;
 	}
-	printf("\n\n");
-}
-
-void	print_reverese_paths(t_paths *all_paths)
-{
-	t_paths		*path;
-	t_adjvertex	*adj_vertex;
-	t_adjvertex	*last;
-
-	path = all_paths;
-	adj_vertex = all_paths->path;
-	while (path)
-	{
-		printf("\n");
-		adj_vertex = path->path;
-		printf("Path len %d\n", path->length);
-		while (adj_vertex)
-		{
-			printf("(\033[1;35m%s\033[1;37m)", adj_vertex->vertex->name);
-			last = adj_vertex;
-			adj_vertex = adj_vertex->next;
-		}
-		printf("\n");
-		path = path->next;
-	}
-}
-
-void	print_graph(t_vertex *top_vertex)
-{
-	t_vertex	*vertex;
-	t_adjvertex	*adj_vertex;
-
-	vertex = top_vertex;
-	adj_vertex = vertex->adj_vertexes;
-	while (vertex)
-	{
-		adj_vertex = vertex->adj_vertexes;
-		printf("\033[1;37mVertex:\033[1;36m[%s]", vertex->name);
-		printf("\033[1;37m conected with:");
-		while (adj_vertex)
-		{
-			printf(" (\033[1;33m%s\033[1;37m)", adj_vertex->vertex->name);
-			adj_vertex = adj_vertex->next;
-		}
-		vertex = vertex->next;
-		printf("\n");
-	}
+	ft_putstr("\n\n");
 }
 
 bool	is_only_numbers(char *str)

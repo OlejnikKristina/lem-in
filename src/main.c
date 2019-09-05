@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 20:10:06 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 14:33:57 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 15:08:55 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ int		main(void)
 	create_graph(&graph);
 	bfs(&graph, &paths);
 	send_ants(&paths, &graph);
-
-//	print_paths(&paths);
-//	print_graph(graph.top_vertex);
 	free_data(&graph, &paths);
 	sleep(20);
 	return (0);

@@ -6,7 +6,7 @@
 #    By: krioliin <krioliin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/18 20:29:00 by krioliin       #+#    #+#                 #
-#    Updated: 2019/09/05 14:31:19 by krioliin      ########   odam.nl          #
+#    Updated: 2019/09/05 15:12:25 by krioliin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRC			= main.c errors_management.c \
 			create_graph.c get_ants_amount.c free_data.c \
 			add_vertexes.c set_connections.c bfs.c \
 			path_restore.c num_shortest_paths.c \
-			print_result.c send_ants.c distribute_ants.c
+			print_result.c send_ants.c distribute_ants.c \
+			additional_functions.c
 
 all: $(NAME)
 

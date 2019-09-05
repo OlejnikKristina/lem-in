@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 14:31:52 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 15:11:26 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void					set_connections(t_graph *graph, char *first_conection);
 
 void					bfs(t_graph *graph, t_paths	*paths);
 void					restore_path(t_graph *graph, t_vertex *vertex, t_paths *paths);
-short					num_shortest_paths(t_paths *all_paths, int ants_amount, int paths_amount);
+short					num_shortest_paths(t_paths *all_paths, int ants_amount,
+						int paths_amount);
 
 
 /*
@@ -102,9 +103,13 @@ int						get_paths_amount(t_paths *path_head);
 void					send_ants(t_paths *paths, t_graph *graph);
 void					distribute_ants(t_paths *all_paths, int ants_amount,
 						short max_paths_num);
-bool					send_first_ant(t_paths *all_paths, int *ant_name, int total_ants, char *end_room);
+bool					send_first_ant(t_paths *all_paths, int *ant_name, int total_ants,
+						char *end_room);
 t_adjvertex				*add_end_room(t_paths *all_paths, t_vertex *end_vertex);
-bool					print_output(int ant_name, char *room_name, int total_ants, char *end_room);
+bool					print_output(int ant_name, char *room_name, int total_ants,
+						char *end_room);
+bool					print_colorful_output(int ant_name, char *room_name, int total_ants,
+						char *end_room);
 
 
 /*
@@ -119,14 +124,5 @@ void					error_generated(int error_num, t_graph *graph);
 bool					is_only_numbers(char *str);
 void					free_adjacent_list(t_adjvertex *list);
 t_adjvertex				*get_first_room(t_adjvertex *path);
-t_adjvertex				*get_first_room_add_end_room(t_adjvertex *path, t_vertex *end_vertex);
-
-/*
-** ******************************* Ants distributing *************************************
-*/
-
-void					print_reverese_paths(t_paths *all_paths);
-void					print_paths(t_paths *all_paths);
-void					print_graph(t_vertex *top_vertex);
 
 #endif
