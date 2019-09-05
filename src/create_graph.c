@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/02 12:11:02 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 15:28:16 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ t_vertex	*create_vertex(char *name)
 	if (!new_vertex)
 		return (NULL);
 	new_vertex->name = ft_strdup(name);
-	new_vertex->ant = 0;
 	new_vertex->p_size = 0;
 	new_vertex->parents = 0;
 	new_vertex->visited = false;
-	ft_bzero(new_vertex->ants, sizeof(new_vertex->ants)); //Unessesery
+	ft_bzero(new_vertex->ants, sizeof(new_vertex->ants));
 	new_vertex->next = NULL;
 	return (new_vertex);
 }
@@ -54,15 +53,14 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 		}
 		current->next = create_vertex(name);
 	}
-	graph->n_vertexes++;
 	return (current->next);
 }
 
-void	end_start_comment(char **line, t_graph *g)
+void		end_start_comment(char **line, t_graph *g)
 {
-	char		start_end_comment;
-	bool static	start_vertix;
-	char		*name;
+	char			start_end_comment;
+	static bool		start_vertix;
+	char			*name;
 
 	start_end_comment = '\0';
 	if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
@@ -92,7 +90,7 @@ void	end_start_comment(char **line, t_graph *g)
 **	regular room. Extract name of it. Add it as a new vertex to a graph
 */
 
-char	*add_vertexes(t_graph *graph)
+char		*add_vertexes(t_graph *graph)
 {
 	char	*line;
 	char	*vertex_name;
@@ -114,7 +112,7 @@ char	*add_vertexes(t_graph *graph)
 	return (line);
 }
 
-bool	create_graph(t_graph *graph)
+bool		create_graph(t_graph *graph)
 {
 	char		*first_conection;
 
@@ -122,7 +120,6 @@ bool	create_graph(t_graph *graph)
 	ft_bzero(graph, sizeof(graph));
 	graph->n_ants = get_ants_amount();
 	first_conection = add_vertexes(graph);
-	printf("rooms %d", graph->n_vertexes);
 	set_connections(graph, first_conection);
 	return (true);
 }

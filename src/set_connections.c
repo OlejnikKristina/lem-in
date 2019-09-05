@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 21:23:17 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/28 10:39:43 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 16:27:53 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_vertex	*find_vertex(t_vertex *list, char *name)
 	return (NULL);
 }
 
-short	create_edge(t_adjvertex **vertex1_adjlist, t_vertex *vertex2)
+short		create_edge(t_adjvertex **vertex1_adjlist, t_vertex *vertex2)
 {
 	t_adjvertex		*adj_list;
 	t_adjvertex		*new_edge;
@@ -45,21 +45,21 @@ short	create_edge(t_adjvertex **vertex1_adjlist, t_vertex *vertex2)
 		error_generated(7, (t_graph *)vertex1_adjlist);
 	new_edge->vertex = vertex2;
 	new_edge->next = NULL;
-	(adj_list) ? (adj_list->next = new_edge) : (*vertex1_adjlist = new_edge);
+	(adj_list) ?
+	(adj_list->next = new_edge) :
+	(*vertex1_adjlist = new_edge);
 	return (0);
 }
 
 /*
-**
-**	[graph_insert_edge]
-**	Insert the edge (conection) to adjacency list,
-**	between vertex with name1 and vertex with name2
-**	Return Value 0 if inserting the edge is successful,
-**	1 if the edge already exists, or –1 otherwise
-**
+** [graph_insert_edge]
+** Insert the edge (conection) to adjacency list,
+** between vertex with name1 and vertex with name2
+** Return Value 0 if inserting the edge is successful,
+** 1 if the edge already exists, or –1 otherwise
 */
 
-short	graph_insert_edge(t_graph *graph, char *name1, char *name2)
+short		graph_insert_edge(t_graph *graph, char *name1, char *name2)
 {
 	t_vertex	*vertex1;
 	t_vertex	*vertex2;
@@ -76,11 +76,10 @@ short	graph_insert_edge(t_graph *graph, char *name1, char *name2)
 	}
 	if (!vertex1 || !vertex2)
 		error_generated(6, graph);
-	graph->n_edges += 1;
 	return (create_edge(&vertex1->adj_vertexes, vertex2));
 }
 
-void	set_connections(t_graph *graph, char *first_edge)
+void		set_connections(t_graph *graph, char *first_edge)
 {
 	char	*line;
 	char	**names;

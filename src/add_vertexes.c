@@ -6,13 +6,34 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 21:05:38 by krioliin       #+#    #+#                */
-/*   Updated: 2019/08/23 20:19:21 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 16:34:49 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-char	*get_vertex_name(char **line, t_graph *graph)
+bool		is_only_numbers(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}
+
+t_adjvertex	*get_first_room(t_adjvertex *path)
+{
+	t_adjvertex *vertex;
+
+	vertex = path;
+	while (vertex->next)
+		vertex = vertex->next;
+	return (vertex);
+}
+
+char		*get_vertex_name(char **line, t_graph *graph)
 {
 	char	*name;
 	int		name_len;
@@ -35,7 +56,6 @@ t_vertex	*graph_insert_first_vertex(t_graph *graph, char *name)
 	new_top_vertex = create_vertex(name);
 	new_top_vertex->next = graph->top_vertex;
 	graph->top_vertex = new_top_vertex;
-	graph->n_vertexes++;
 	return (new_top_vertex);
 }
 
@@ -45,12 +65,13 @@ t_vertex	*graph_insert_first_vertex(t_graph *graph, char *name)
 **	Either reached data regarding rooms conections
 */
 
-bool	read_vertexes(char *line)
+bool		read_vertexes(char *line)
 {
 	int		space;
 
 	space = findchr(line, ' ');
-	if ((space != -1 && (findchr(&line[space + 1], ' ') != -1)) || line[0] == '#')
+	if ((space != -1 && (findchr(&line[space + 1], ' ') != -1))
+		|| line[0] == '#')
 		return (true);
 	return (false);
 }

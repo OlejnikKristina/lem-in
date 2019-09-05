@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/30 16:45:57 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 14:25:19 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 16:26:28 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,21 @@ void	put_ant_in_next_room(int next_room[10], int current_room[10])
 	current_room[i - 1] = 0;
 }
 
-bool	move_ant_to_next_room(t_adjvertex *room, t_paths *path, int total_ants, char *end_room)
+bool	move_ant_to_next_room(t_adjvertex *room, t_paths *path,
+		int total_ants, char *end_room)
 {
 	if (room->prev)
 	{
-		if (print_output(room->vertex->ants[0], room->prev->vertex->name, total_ants, end_room))
+		if (print_output(room->vertex->ants[0], room->prev->vertex->name,
+			total_ants, end_room))
 			return (true);
 		put_ant_in_next_room(room->prev->vertex->ants, room->vertex->ants);
 	}
 	return (false);
 }
 
-bool	check_path(t_paths *path, int *prev_ant_name, int total_ants, char *end_room)
+bool	check_path(t_paths *path, int *prev_ant_name, int total_ants,
+		char *end_room)
 {
 	t_adjvertex	*room;
 
@@ -88,10 +91,12 @@ void	send_ants(t_paths *paths, t_graph *graph)
 	distribute_ants(paths, graph->n_ants,
 	num_shortest_paths(paths, graph->n_ants, get_paths_amount(paths)));
 	add_end_room(paths, graph->end_vertex);
-	ants_arrived = send_first_ant(paths, &previous_ant, graph->n_ants, graph->end_vertex->name);
+	ants_arrived = send_first_ant(paths, &previous_ant,
+	graph->n_ants, graph->end_vertex->name);
 	while (!ants_arrived)
 	{
-		ants_arrived = check_path(path, &previous_ant, graph->n_ants, graph->end_vertex->name);
+		ants_arrived =
+		check_path(path, &previous_ant, graph->n_ants, graph->end_vertex->name);
 		path = path->next;
 		if (path == NULL && ft_printf("\n"))
 			path = paths;

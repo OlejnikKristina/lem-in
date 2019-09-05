@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/05 14:23:29 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 15:08:42 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 16:23:46 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		get_paths_amount(t_paths *path_head)
+int			get_paths_amount(t_paths *path_head)
 {
 	t_paths		*head;
 	int			amoun_conection;
@@ -27,13 +27,12 @@ int		get_paths_amount(t_paths *path_head)
 	return (amoun_conection);
 }
 
-void	distribute_ants(t_paths *all_paths, int ants_amount, short max_paths_num)
+void		distribute_ants(t_paths *all_paths, int ants_amount,
+			short max_paths_num)
 {
 	t_paths *path;
-	int		i;
 	int		path_num;
 
-	i = 0;
 	path_num = 1;
 	path = all_paths;
 	while (path)
@@ -44,11 +43,11 @@ void	distribute_ants(t_paths *all_paths, int ants_amount, short max_paths_num)
 	path = all_paths;
 	if (path->path == NULL)
 		return ;
-	while (i < ants_amount)
+	while (ants_amount)
 	{
+		ants_amount--;
 		path->ant_amount += 1;
 		path = path->next;
-		i++;
 		path_num++;
 		if (path == NULL || max_paths_num < path_num)
 		{
@@ -58,14 +57,23 @@ void	distribute_ants(t_paths *all_paths, int ants_amount, short max_paths_num)
 	}
 }
 
+void		create_end_room(t_adjvertex **vertex, bool *add_end,
+		t_vertex *end_vertex)
+{
+	(*vertex)->prev = (t_adjvertex *)malloc(sizeof(t_adjvertex));
+	(*vertex)->prev->vertex = end_vertex;
+	(*vertex)->prev->next = *vertex;
+	(*vertex)->prev->prev = NULL;
+	*add_end = false;
+}
+
 /*
 **	[add_end_room] Store pointer to last/target room
 **	into first pointer, of our linked list,
 **	with lovely name "prev"
-**	
 */
 
-t_adjvertex		*add_end_room(t_paths *all_paths, t_vertex *end_vertex)
+void		add_end_room(t_paths *all_paths, t_vertex *end_vertex)
 {
 	t_adjvertex *vertex;
 	t_paths		*path;
@@ -79,13 +87,7 @@ t_adjvertex		*add_end_room(t_paths *all_paths, t_vertex *end_vertex)
 		while (vertex->next)
 		{
 			if (add_end)
-			{
-				vertex->prev = (t_adjvertex *)malloc(sizeof(t_adjvertex));
-				vertex->prev->vertex = end_vertex;
-				vertex->prev->next = vertex;
-				vertex->prev->prev = NULL;
-				add_end = false;
-			}
+				create_end_room(&vertex, &add_end, end_vertex);
 			vertex->next->prev = vertex;
 			vertex = vertex->next;
 			if (vertex->next == NULL)
@@ -95,10 +97,10 @@ t_adjvertex		*add_end_room(t_paths *all_paths, t_vertex *end_vertex)
 		path = path->next;
 		(path) ? vertex = path->path : NULL;
 	}
-	return (vertex->prev);
 }
 
-bool		send_first_ant(t_paths *all_paths, int *ant_name, int total_ants, char *end_room)
+bool		send_first_ant(t_paths *all_paths, int *ant_name, int total_ants,
+			char *end_room)
 {
 	t_paths	*path;
 	int		i;
@@ -106,8 +108,6 @@ bool		send_first_ant(t_paths *all_paths, int *ant_name, int total_ants, char *en
 	i = 0;
 	*ant_name = 1;
 	path = all_paths;
-	if (path->first_room->vertex->next == NULL)
-		exit(0);
 	while (path)
 	{
 		if (0 < path->ant_amount)
@@ -115,7 +115,8 @@ bool		send_first_ant(t_paths *all_paths, int *ant_name, int total_ants, char *en
 			while (path->first_room->vertex->ants[i] && i < 9)
 				i++;
 			path->first_room->vertex->ants[i] = *ant_name;
-			if (i == 0 && print_output(*ant_name, path->first_room->vertex->name, total_ants, end_room))
+			if (i == 0 && print_output(*ant_name,
+				path->first_room->vertex->name, total_ants, end_room))
 				return (true);
 			i = 0;
 			path->ant_amount -= 1;
