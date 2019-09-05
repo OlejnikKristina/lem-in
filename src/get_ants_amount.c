@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:06:42 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 12:39:35 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 12:53:07 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		get_ants_amount()
 	char	*line;
 	char	*flow_one = "maps/flow_one.c";
 	char	*flow_ten = "maps/flow_ten.txt";// OK
-	char	*flow_thousand = "maps/flow_thousand.txt";// OK
+	char	*flow_thousand = "maps/flow-thousand.txt";// OK
 	char	*big = "maps/big.txt";
 	char	*big2 = "maps/big.txt";
 	char	*big_superposition = "maps/big-superposition.txt";
