@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 20:10:06 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/04 11:23:59 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/04 20:14:31 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int		main(void)
 	bfs(&graph, &paths);
 	holder = &paths;
 	paths_amount = get_paths_amount(&paths);
-//	holder = sort_paths(&holder, paths_amount + paths_amount / 2);
-	last_room_name = ft_strdup(graph.end_vertex->name);
+	holder = sort_paths(&holder, paths_amount + paths_amount / 2);
 	print_result(holder, &graph);
 
+	print_paths(&paths);
 //	print_graph(graph.top_vertex);
 	free_data(&graph);
 	return (0);

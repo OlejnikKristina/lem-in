@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/04 11:25:55 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/04 19:58:51 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void					set_connections(t_graph *graph, char *first_conection);
 
 void					bfs(t_graph *graph, t_paths	*paths);
 void					restore_path(t_graph *graph, t_vertex *vertex, t_paths *paths);
+short					choose_shortest_paths(t_paths *all_paths, int ants_amount, int paths_amount);
 int						get_paths_amount(t_paths *path_head);
 t_paths					*sort_paths(t_paths **paths, int count);
 

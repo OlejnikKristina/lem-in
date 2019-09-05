@@ -6,31 +6,122 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/30 16:45:57 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/04 11:23:56 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/05 12:43:28 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 /*
-			CHECK COLISION
-	if (room->ant && ft_strcmp(last_room_name, room->name))
-	{
-		printf("Ant num %d in room %s replace by ant num %d\n",
-		room->ant, room->name, *last_ant_name);
-	}
-	if (room->prev->vertex->ant && ft_strcmp(last_room_name, room->prev->vertex->name))
-	{
-	printf("Ant num %d in room %s replace by ant num %d\n",
-	room->prev->vertex->ant, room->prev->vertex->name, room->vertex->ant);
-	}
+	required 61
+	orignal 72 use all 11
+	orignal 71 use up to 9
+	orignal 72 use up to 8
+	orignal 74 use up to 7
+	orignal 87 use up to 6
 */
-void	distribute_ants(t_paths *all_paths, int ants_amount)
+
+// void	shortorization(t_paths *all_paths)
+// {
+// 	t_paths		*head;
+// 	t_adjvertex	*a;
+// 	t_adjvertex	*b;
+// 	t_adjvertex	*temp;
+// 	int			i;
+
+// 	head = all_paths;
+// 	while (head)
+// 	{
+// 		if (100 <= head->length - 20)
+// 		{
+// 			i = 0;
+// 			a = head->path;
+// 			while (i <= 30)
+// 			{
+// 				a = a->next;
+// 				i++;
+// 			}
+// 			b = a->next;// [elem1] [elem2]
+// 			while (i <= 110)
+// 			{
+// 				temp = b;
+// 				b = b->next;
+// 				//free(temp);
+// 				i++;
+// 			}
+// 			a->next = temp;
+// 		}
+// 		else if (55 <= head->length - 20)
+// 		{
+// 			i = 0;
+// 			a = head->path;
+// 			while (i <= 20)
+// 			{
+// 				a = a->next;
+// 				i++;
+// 			}
+// 			b = a->next;// [elem1] [elem2]
+// 			while (i <= 70)
+// 			{
+// 				temp = b;
+// 				b = b->next;
+// 				//free(temp);
+// 				i++;
+// 			}
+// 			a->next = temp;
+// 		}
+// 		else if (20 <= head->length - 20)
+// 		{
+// 			i = 0;
+// 			a = head->path;
+// 			while (i <= 18)
+// 			{
+// 				a = a->next;
+// 				i++;
+// 			}
+// 			b = a->next;// [elem1] [elem2]
+// 			while (i <= 35)
+// 			{
+// 				temp = b;
+// 				b = b->next;
+// 				//free(temp);
+// 				i++;
+// 			}
+// 			a->next = temp;
+// 		}
+// 		else if (10 <= head->length - 20)
+// 		{
+// 			i = 0;
+// 			a = head->path;
+// 			while (i <= 18)
+// 			{
+// 				a = a->next;
+// 				i++;
+// 			}
+// 			b = a->next;// [elem1] [elem2]
+// 			while (i <= 25)
+// 			{
+// 				temp = b;
+// 				b = b->next;
+// 				//free(temp);
+// 				i++;
+// 			}
+// 			a->next = temp;
+// 		}
+// 		head = head->next;
+// 	}
+// }
+
+void	distribute_ants(t_paths *all_paths, int ants_amount, short max_paths_num)
 {
 	t_paths *path;
 	int		i;
+	int		path_num;
 
 	i = 0;
+	path_num = 1;
 	path = all_paths;
+	printf("---------------------------------------------------------------------\n");
+//	shortorization(all_paths);
 	while (path)
 	{
 		path->ant_amount = 0;
@@ -41,17 +132,20 @@ void	distribute_ants(t_paths *all_paths, int ants_amount)
 		return ;
 	while (i < ants_amount)
 	{
-
 		path->ant_amount += 1;
 		path = path->next;
 		i++;
-		if (path == NULL)
+		path_num++;
+		if (max_paths_num < path_num || path == NULL)
+		{
 			path = all_paths;
+			path_num = 1;
+		}
 	}
 	path = all_paths;
 	while (path)
 	{
-		printf("There are %d ants in path 1\n", path->ant_amount);
+		printf("There are %d ants in path\n", path->ant_amount);
 		path = path->next;
 	}
 }
@@ -140,11 +234,6 @@ bool		send_first_ant(t_paths *all_paths, int *ant_name, int total_ants)
 			while (path->first_room->vertex->ants[i] && i < 9)
 				i++;
 			path->first_room->vertex->ants[i] = *ant_name;
-			if (path->first_room->vertex->ant)
-			{
-				printf("Ant num %d in room %s replace by ant num %d\n",
-				path->first_room->vertex->ant, path->first_room->vertex->name, *ant_name);
-			}
 			if (i == 0 && print_output(*ant_name, path->first_room->vertex->name, total_ants))
 				return (true);
 			i = 0;
@@ -234,28 +323,31 @@ bool	check_path(t_paths *path, int *prev_ant_name, int total_ants)
 void	print_result(t_paths *paths, t_graph *graph)
 {
 	int		previous_ant;
+	int		count_lines;
 	bool	ants_arrived;
 	t_paths	*path;
-	int		i;
 
-	i = 0;
+	count_lines = 1;
 	path = paths;
 	ants_arrived = false;
 	count_ants_arrived = 0;
-	print_reverese_paths(paths);
+	last_room_name = ft_strdup(graph->end_vertex->name);
+	//print_reverese_paths(paths);
+	distribute_ants(paths, graph->n_ants,
+	choose_shortest_paths(paths, graph->n_ants, get_paths_amount(paths)));
 	add_end_room(paths, graph->end_vertex);
-	distribute_ants(paths, graph->n_ants);
 	ants_arrived = send_first_ant(paths, &previous_ant, graph->n_ants);
 	while (!ants_arrived)
 	{
 		ants_arrived = check_path(path, &previous_ant, graph->n_ants);
 		path = path->next;
 		if (path == NULL && ft_printf("\n"))
+		{
 			path = paths;
-		i++;
-		if (3500 < i)
-			break ;
+			count_lines++;
+		}
 	}
-	print_paths(paths);
-	ft_printf("%{BLUE_B}TOTAL ANTS ARRIVED %d\n", count_ants_arrived);
+	ft_printf("\n%{BLUE_B}TOTAL ANTS ARRIVED %d AMOUNT LINES %d\n", count_ants_arrived, count_lines);
+	printf("Optimal amount of paths %hd\n",
+	choose_shortest_paths(paths, graph->n_ants, get_paths_amount(paths)));
 }
