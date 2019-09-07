@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 15:28:16 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/07 21:03:44 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void		end_start_comment(char **line, t_graph *g)
 		return ;
 	ft_strdel(line);
 	get_next_line(0, line);
+	ft_print(*line);
 	name = get_vertex_name(line, g);
 	if (start_end_comment == 's')
 	{
@@ -98,6 +99,7 @@ char		*add_vertexes(t_graph *graph)
 	get_next_line(0, &line);
 	while (read_vertexes(line))
 	{
+		ft_print(line);
 		if (line[0] == '#')
 			end_start_comment(&line, graph);
 		else

@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/30 16:45:57 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 16:26:28 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/07 21:09:16 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-bool	send_next_ant(t_paths *path, int *last_ant_name, int total_ants)
+bool	send_next_ant(t_paths *path, int *last_ant_name)
 {
 	t_vertex	*room;
 	int			i;
@@ -24,10 +24,14 @@ bool	send_next_ant(t_paths *path, int *last_ant_name, int total_ants)
 		while (room->ants[i] && i < 9)
 			i++;
 		room->ants[i] = *last_ant_name;
-		// if (print_output(*last_ant_name, room->name, total_ants))
-		// 	return (true);
-		ft_printf("%{WHITE_B}L%{YELLOW_B}%d%{WHITE_B}-%{PINK_B}%s ",
-			*last_ant_name, path->first_room->vertex->name);
+		if (MORE_INFO)
+			ft_printf("%{WHITE_B}L%{YELLOW_B}%d%{WHITE_B}-%{PINK_B}%s",
+				*last_ant_name, path->first_room->vertex->name);
+		else
+			ft_printf("L%d-%s",
+				*last_ant_name, path->first_room->vertex->name);
+		if (path->next)
+			ft_putchar(' ');
 		*last_ant_name += 1;
 		path->ant_amount -= 1;
 	}
@@ -77,15 +81,17 @@ bool	check_path(t_paths *path, int *prev_ant_name, int total_ants,
 				return (true);
 		room = room->next;
 	}
-	return (send_next_ant(path, prev_ant_name, total_ants));
+	return (send_next_ant(path, prev_ant_name));
 }
 
 void	send_ants(t_paths *paths, t_graph *graph)
 {
 	int			previous_ant;
+	int			count_lines;
 	bool		ants_arrived;
 	t_paths		*path;
 
+	count_lines = 2;
 	path = paths;
 	ants_arrived = false;
 	distribute_ants(paths, graph->n_ants,
@@ -99,6 +105,13 @@ void	send_ants(t_paths *paths, t_graph *graph)
 		check_path(path, &previous_ant, graph->n_ants, graph->end_vertex->name);
 		path = path->next;
 		if (path == NULL && ft_printf("\n"))
+		{
 			path = paths;
+			count_lines++;
+		}
 	}
+	if (MORE_INFO)
+		ft_printf("\nAmount of lines [%d]", count_lines);
+	if (MORE_INFO)
+		print_paths(paths);
 }

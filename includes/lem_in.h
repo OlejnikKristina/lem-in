@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 16:41:43 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/07 21:49:20 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define MAX_ANTS_IN_ONE_ROOM 10
 # define LAST_ANT -1
 # define PATH_PASSED -2
+# define MORE_INFO 0
 # include <stdio.h>
 
 struct s_vertex;
@@ -68,14 +69,16 @@ typedef struct			s_graph
 */
 
 bool					create_graph(t_graph *graph);
-void					free_graph(t_graph *graph);
+bool					read_vertexes(char *line);
 char					*get_vertex_name(char **line, t_graph *graph);
 t_vertex				*create_vertex(char *name);
 t_vertex				*graph_insert_first_vertex(t_graph *graph, char *name);
 t_vertex				*graph_insert_vertex(t_graph *graph, char *name);
-bool					read_vertexes(char *line);
 void					set_connections(t_graph *graph, char *first_conection);
 t_adjvertex				*get_first_room(t_adjvertex *path);
+void					create_end_room(t_adjvertex **vertex, bool *add_end,
+						t_vertex *end_vertex);
+void					free_graph(t_graph *graph);
 
 /*
 	************************* Find the best paths *****************************
@@ -86,6 +89,7 @@ void					restore_path(t_graph *graph, t_vertex *vertex,
 						t_paths *paths);
 short					num_shortest_paths(t_paths *all_paths, int ants_amount,
 						int paths_amount);
+int						get_ants_amount();
 
 /*
 ** ***************************** Ants distributing ****************************
@@ -100,18 +104,17 @@ bool					send_first_ant(t_paths *all_paths, int *ant_name,
 void					add_end_room(t_paths *all_paths, t_vertex *end_vertex);
 bool					print_output(int ant_name, char *room_name,
 						int total_ants, char *end_room);
-bool					print_colorful_output(int ant_name, char *room_name,
-						int total_ants, char *end_room);
-
+bool					ft_print(char *line);
+void					print_paths(t_paths *all_paths);
+void					print_ants_distribution(t_paths *paths);
 /*
 ** ************************* Addtional functions *******************************
 */
 
-int						get_ants_amount();
-void					free_data(t_graph *graph, t_paths *paths);
 void					simple_error_generated(int error);
 void					error_generated(int error_num, t_graph *graph);
 bool					is_only_numbers(char *str);
 void					free_adjacent_list(t_adjvertex *list);
+void					free_data(t_graph *graph, t_paths *paths);
 
 #endif

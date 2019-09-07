@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   get_ants_amount.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/08/18 20:10:06 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/07 12:03:57 by krioliin      ########   odam.nl         */
+/*   Created: 2019/09/07 17:38:06 by krioliin       #+#    #+#                */
+/*   Updated: 2019/09/07 21:13:00 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		main(void)
+bool	ft_print(char *line)
 {
-	t_graph	graph;
-	t_paths	paths;
+	ft_printf(line);
+	ft_putchar('\n');
+	return (1);
+}
 
-	create_graph(&graph);
-	bfs(&graph, &paths);
-	send_ants(&paths, &graph);
-	free_data(&graph, &paths);
-	return (0);
+int		get_ants_amount(void)
+{
+	char	*line;
+	int		ants_amount;
+
+	if (get_next_line(0, &line) == -1 || line[0] == '\0')
+		simple_error_generated(1);
+	ft_print(line);
+	ants_amount = ft_atoi(line);
+	if (!is_only_numbers(line) || ants_amount <= 0)
+		simple_error_generated(2);
+	ft_strdel(&line);
+	return (ants_amount);
 }

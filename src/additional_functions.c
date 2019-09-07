@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/05 15:12:33 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 16:33:01 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/07 21:36:59 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,38 +40,33 @@ void	error_generated(int error, t_graph *graph)
 	exit(0);
 }
 
-void	print_paths(t_paths *all_paths)
+short	num_shortest_paths(t_paths *all_paths,
+		int ants_amount, int paths_amount)
 {
-	t_paths		*path;
-	t_adjvertex	*head;
+	t_paths	*path;
+	float	pre_steps;
+	float	steps;
+	int		i;
+	int		j;
 
-	path = all_paths;
-	while (path)
+	j = 2;
+	pre_steps = all_paths->length + ants_amount;
+	while (path && j < get_paths_amount(all_paths))
 	{
-		ft_putchar('\n');
-		head = get_first_room(path->path);
-		ft_printf("Path len %d\n", path->length);
-		while (head)
+		path = all_paths;
+		steps = 0;
+		while (i <= j && path)
 		{
-			ft_printf("(\033[1;35m%s\033[1;37m)", head->vertex->name);
-			head = head->prev;
+			steps += path->length;
+			path = path->next;
+			i++;
 		}
-		ft_putchar('\n');
-		path = path->next;
+		steps = (steps + ants_amount) / j;
+		if (pre_steps <= steps)
+			break ;
+		pre_steps = steps;
+		j += 1;
+		i = 1;
 	}
-	ft_putstr("\n\n");
-}
-
-int		get_ants_amount(void)
-{
-	char	*line;
-	int		ants_amount;
-
-	if (get_next_line(0, &line) == -1 || line[0] == '\0')
-		simple_error_generated(1);
-	ants_amount = ft_atoi(line);
-	if (!is_only_numbers(line) || ants_amount <= 0)
-		simple_error_generated(2);
-	ft_strdel(&line);
-	return (ants_amount);
+	return (j - 1);
 }
