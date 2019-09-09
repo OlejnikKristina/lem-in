@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/29 00:12:30 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/27 20:51:44 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 12:16:47 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	check_flags(char **input, t_format_spec *specifier)
 	return (true);
 }
 
-bool	check_precision(char **input, t_format_spec *specifier, va_list arg_ptr)
+bool	check_precision(char **input, t_format_spec *specifier)
 {
 	specifier->precision = 0;
 	if ((*input)[0] == '.')

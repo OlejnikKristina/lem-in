@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/07/19 20:45:31 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 12:19:04 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static void		f_width(t_format_spec *spec, t_placeholder *result)
 	ft_strdel(&fill_width);
 }
 
-static void		f_precision(t_format_spec *specifier, t_placeholder *result,
-char **fill_precision)
+static void		f_precision(t_format_spec *specifier, char **fill_precision)
 {
 	*fill_precision = NULL;
 	if (18 < specifier->precision)
@@ -99,7 +98,7 @@ va_list arg_ptr)
 	else
 		value = (long double)va_arg(arg_ptr, double);
 	specifier->is_negative = value < 0;
-	f_precision(specifier, result, &fill_precision);
+	f_precision(specifier, &fill_precision);
 	if (!is_nan_inf(value, &holder))
 		ft_ftoa(value, &holder, specifier->precision, 10);
 	f_flags(specifier, result, holder);

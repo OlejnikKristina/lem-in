@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/05 14:21:16 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/07 21:14:05 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 12:57:23 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_paths(t_paths *all_paths)
 	ft_putstr("\n\n");
 }
 
-bool		print_output(int ant_name, char *room_name, int total_ants,
+bool	print_output(int ant_name, char *room_name, int total_ants,
 			char *end_room)
 {
 	static int ants_arrived;

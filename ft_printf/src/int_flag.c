@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/07 23:29:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/07/19 20:41:27 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 12:17:49 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void		hex_flag_hash(t_format_spec *s, t_placeholder *spec_res,
 char *num)
 {
-	if (!s->flag_zero || s->flag_minus || (s->width <= (ft_strlen(num) + 2)))
+	if (!s->flag_zero || s->flag_minus ||
+		(s->width <= (long)(ft_strlen(num) + 2)))
 	{
 		spec_res->str = ft_superjoin(&spec_res->str, "0x");
 		if (s->type == 'X')

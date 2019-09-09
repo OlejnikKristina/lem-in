@@ -43,7 +43,8 @@ ALL_OBJECT_FILES = $(SRC:.c=.o) $(UTILITY:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	@$(COMPILER) -c $(SRC) $(UTILITY) $(LIBFT) -I$(INCLUDES)
+	@$(COMPILER) -c $(SRC) $(UTILITY) $(LIBFT) -I$(INCLUDES) \
+		 -Wall -Werror -Wextra -I libft/includes/
 	@echo "\033[0;32mft_printf and libft successfully created\033[0m"
 	@ar rc $(NAME) *.o
 	@ranlib $(NAME)

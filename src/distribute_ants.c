@@ -6,28 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/05 14:23:29 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/07 21:52:45 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 12:50:00 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			get_paths_amount(t_paths *path_head)
-{
-	t_paths		*head;
-	int			amoun_conection;
-
-	amoun_conection = 0;
-	head = path_head;
-	while (head)
-	{
-		head = head->next;
-		amoun_conection++;
-	}
-	return (amoun_conection);
-}
-
-int		count_paths_len(t_paths *all_paths, int n_paths, int i)
+int			count_paths_len(t_paths *all_paths, int n_paths, int i)
 {
 	t_paths		*path;
 	int			total_paths_len;
@@ -43,7 +28,24 @@ int		count_paths_len(t_paths *all_paths, int n_paths, int i)
 	return (total_paths_len);
 }
 
-void	distribute_ants(t_paths *all_paths, int ants_amount, short n_paths)
+static void	loop_paths(t_paths *path)
+{
+	while (path)
+	{
+		path->ant_amount = 0;
+		path = path->next;
+	}
+}
+
+static void	move_ants(t_paths *path, int *i, int *x, short *ants_left)
+{
+	path->ant_amount = *x - path->length + *ants_left;
+	path = path->next;
+	*ants_left = 0;
+	*i += 1;
+}
+
+void		distribute_ants(t_paths *all_paths, int ants_amount, short n_paths)
 {
 	t_paths		*path;
 	short		ants_left;
@@ -61,54 +63,12 @@ void	distribute_ants(t_paths *all_paths, int ants_amount, short n_paths)
 	x += (total_paths_len + ants_amount) / n_paths;
 	path = all_paths;
 	while (path && path->next && i <= n_paths)
-	{
-		path->ant_amount = x - path->length + ants_left;
-		path = path->next;
-		ants_left = 0;
-		i++;
-	}
-	while (path)
-	{
-		path->ant_amount = 0;
-		path = path->next;
-	}
+		move_ants(path, &i, &x, &ants_left);
+	loop_paths(path);
 	if (MORE_INFO)
 	{
 		print_ants_distribution(all_paths);
 		ft_printf("(Paths len [%d] + ants_amount [%d])/paths_num[%d]= X[%d]\n",
 		total_paths_len, ants_amount, n_paths, x);
-	}
-}
-
-
-/*
-**	[add_end_room] Store pointer to last/target room
-**	into first pointer, of our linked list,
-**	with lovely name "prev"
-*/
-
-void		add_end_room(t_paths *all_paths, t_vertex *end_vertex)
-{
-	t_adjvertex *vertex;
-	t_paths		*path;
-	bool		add_end;
-
-	add_end = true;
-	path = all_paths;
-	vertex = all_paths->path;
-	while (path)
-	{
-		while (vertex->next)
-		{
-			if (add_end)
-				create_end_room(&vertex, &add_end, end_vertex);
-			vertex->next->prev = vertex;
-			vertex = vertex->next;
-			if (vertex->next == NULL)
-				path->first_room = vertex->prev;
-		}
-		add_end = true;
-		path = path->next;
-		(path) ? vertex = path->path : NULL;
 	}
 }

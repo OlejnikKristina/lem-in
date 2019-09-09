@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:54:45 by krioliin       #+#    #+#                */
-/*   Updated: 2019/07/19 21:18:22 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 12:20:53 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ bool			check_length_filed(char **input,
 bool			check_width_filed(char **input, t_format_spec *format_specifier,
 				va_list arg_ptr);
 bool			check_width(t_format_spec *s);
-bool			check_precision(char **input, t_format_spec *format_specifier,
-				va_list arg_ptr);
+bool			check_precision(char **input, t_format_spec *format_specifier);
 bool			check_flags(char **input, t_format_spec *format_specifier);
 /*
 ** ******************************* Integer *************************************
@@ -92,8 +91,7 @@ bool			type_p(t_format_spec *specifier, t_placeholder *result,
 				va_list arg_ptr);
 bool			type_f(t_format_spec *specifier, t_placeholder *result,
 				va_list arg_ptr);
-bool			type_percent(t_format_spec *s, t_placeholder *result,
-				va_list arg_ptr);
+bool			type_percent(t_format_spec *s, t_placeholder *result);
 void			type_hexadecimal(t_format_spec *s, t_placeholder *result);
 void			integer(t_format_spec *specifier,
 				t_placeholder *spec_res, va_list arg_ptr);
@@ -103,8 +101,7 @@ void			integer(t_format_spec *specifier,
 bool			copy_until(char *src, t_output *out, char percent);
 void			move_ptr(char **input, char move_to, t_output *out);
 void			add_zeros(unsigned dig_amount, char **result, ssize_t width);
-bool			set_color(t_format_spec *specifier, t_placeholder *result,
-				char **input);
+bool			set_color(t_placeholder *result, char **input);
 void			fix_bug(t_format_spec *s, t_placeholder *result);
 bool			need_crutch(t_format_spec *spec, uint64_t data);
 short int		is_nan_inf(long double value, char **float_str);

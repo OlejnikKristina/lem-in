@@ -6,14 +6,11 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/08 18:06:13 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 12:32:41 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 13:18:58 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdint.h>
-#include <stdbool.h>
-#include <limits.h>
 
 unsigned	count_digit64(int64_t nbr)
 {
