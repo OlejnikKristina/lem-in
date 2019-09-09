@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:11:38 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/05 16:24:09 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 19:39:11 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,19 @@ void	free_adjacent_list(t_adjvertex *list)
 	if (!list)
 		return ;
 	head = list;
+	if (head && head->prev)
+	{
+		ft_memdel((void **)&head->prev);
+		head->prev = NULL;
+	}
 	while (head)
 	{
 		temp = head->next;
+		// if (head->prev)
+		// {
+		// 	//free(head->prev);
+		// 	head->prev = NULL;
+		// }
 		free(head);
 		head = temp;
 	}
@@ -40,7 +50,7 @@ void	free_graph(t_graph *graph)
 		free(head->parents);
 		(head->name) ? ft_strdel(&head->name) : 1;
 		temp = head->next;
-		(head) ? free(head) : 1;
+		(head) ? free(head) : NULL;
 		head = temp;
 	}
 }
@@ -51,6 +61,11 @@ void	free_paths(t_paths *paths)
 	t_paths	*tmp;
 
 	head = paths->next;
+	if (!head)
+	{
+		free_adjacent_list(paths->path);
+		return ;
+	}
 	tmp = head->next;
 	free_adjacent_list(paths->path);
 	while (tmp)

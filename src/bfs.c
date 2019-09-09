@@ -6,7 +6,7 @@
 /*   By: kpereira <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 15:59:28 by kpereira       #+#    #+#                */
-/*   Updated: 2019/09/09 12:55:23 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 19:18:38 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	bfs_search(t_graph *graph, t_adjvertex *queue, t_paths *paths)
 {
 	t_adjvertex	*tmp;
 	t_adjvertex	*tmp_queue;
-	int			i;
 
-	i = 0;
 	tmp_queue = queue;
 	while (tmp_queue)
 	{
@@ -68,5 +66,6 @@ void	bfs(t_graph *graph, t_paths *paths)
 	queue = init_queue(graph, queue);
 	ft_bzero(paths, sizeof(paths));
 	bfs_search(graph, queue, paths);
+	queue->prev = 0;
 	free_adjacent_list(queue);
 }

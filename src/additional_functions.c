@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/05 15:12:33 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 18:02:57 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 18:49:08 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void			error_generated(int error, t_graph *graph)
 	}
 	if (error == 7)
 		perror("Not enough memory.");
+	if (error == 8)
+		perror("Paths not found");
 	free_graph(graph);
 	ft_putchar('\n');
 	exit(0);
