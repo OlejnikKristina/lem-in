@@ -6,7 +6,7 @@
 #    By: krioliin <krioliin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/09 12:24:29 by krioliin       #+#    #+#                 #
-#    Updated: 2019/09/09 13:07:03 by krioliin      ########   odam.nl          #
+#    Updated: 2019/09/09 16:05:54 by krioliin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SPECIFIC_NAME	:= other/kr_count_words other/space favorite/findchr \
 
 OBJ			:=  $(addsuffix .o, $(addprefix ft_, $(FAVORITE) $(LST) $(MEM) \
 	$(OTHER) $(STR) $(PUT))) findchr.o kr_count_words.o space.o itoa64.o \
-		get_next_line.o
+		get_next_line.o -g
 
 FAVORITE	:= $(addprefix favorite/, $(addprefix ft_, $(FAVORITE)))
 MEM			:= $(addprefix mem/, $(addprefix ft_, $(MEM)))

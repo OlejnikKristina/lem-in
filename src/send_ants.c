@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/30 16:45:57 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 12:59:33 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 15:26:13 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	send_ants(t_paths *paths, t_graph *graph)
 
 	count_lines = 2;
 	path = paths;
+	ants_arrived = false;
 	distribute_ants(paths, graph->n_ants,
 	num_shortest_paths(paths, graph->n_ants, get_paths_amount(paths)));
 	add_end_room(paths, graph->end_vertex);

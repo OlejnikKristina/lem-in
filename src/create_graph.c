@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/07 21:03:44 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 17:45:44 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_vertex	*graph_insert_vertex(t_graph *graph, char *name)
 	return (current->next);
 }
 
-void		end_start_comment(char **line, t_graph *g)
+bool		end_start_comment(char **line, t_graph *g)
 {
 	char			start_end_comment;
 	static bool		start_vertix;
@@ -70,7 +70,7 @@ void		end_start_comment(char **line, t_graph *g)
 		start_end_comment = (*line)[2];
 	}
 	if (!start_end_comment)
-		return ;
+		return (0);
 	ft_strdel(line);
 	get_next_line(0, line);
 	ft_print(*line);
@@ -83,6 +83,7 @@ void		end_start_comment(char **line, t_graph *g)
 	else if (start_end_comment == 'e')
 		g->end_vertex = graph_insert_vertex(g, name);
 	ft_strdel(&name);
+	return (1);
 }
 
 /*
@@ -93,15 +94,16 @@ void		end_start_comment(char **line, t_graph *g)
 
 char		*add_vertexes(t_graph *graph)
 {
-	char	*line;
-	char	*vertex_name;
+	char			*line;
+	char			*vertex_name;
+	short static	start_end;
 
 	get_next_line(0, &line);
 	while (read_vertexes(line))
 	{
 		ft_print(line);
 		if (line[0] == '#')
-			end_start_comment(&line, graph);
+			start_end += end_start_comment(&line, graph);
 		else
 		{
 			vertex_name = get_vertex_name(&line, graph);
@@ -111,6 +113,8 @@ char		*add_vertexes(t_graph *graph)
 		ft_strdel(&line);
 		get_next_line(0, &line);
 	}
+	if (start_end < 2)
+		error_generated(3, graph);
 	return (line);
 }
 

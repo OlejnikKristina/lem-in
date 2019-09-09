@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/07 17:38:06 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/07 21:13:00 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 18:34:56 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		get_ants_amount(void)
 	char	*line;
 	int		ants_amount;
 
+	// close(0);
+	// open("maps/flow_ten1", O_RDONLY);
 	if (get_next_line(0, &line) == -1 || line[0] == '\0')
 		simple_error_generated(1);
 	ft_print(line);
