@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 20:10:06 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 19:06:32 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 20:46:53 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ int		main(void)
 	bfs(&graph, &paths);
 	send_ants(&paths, &graph);
 	free_data(&graph, &paths);
-	sleep(10);
 	return (0);
 }

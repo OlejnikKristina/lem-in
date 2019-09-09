@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 18:19:45 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 20:37:03 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ bool					is_only_numbers(char *str);
 void					free_adjacent_list(t_adjvertex *list);
 void					free_data(t_graph *graph, t_paths *paths);
 void					set_to_zero(int *parents, int size);
+char					**end_start_helper(char **line);
 
 #endif

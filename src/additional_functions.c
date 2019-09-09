@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/05 15:12:33 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 18:49:08 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 20:36:52 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ void			error_generated(int error, t_graph *graph)
 	free_graph(graph);
 	ft_putchar('\n');
 	exit(0);
+}
+
+char			**end_start_helper(char **line)
+{
+	ft_strdel(line);
+	get_next_line(0, line);
+	ft_print(*line);
+	return (line);
 }
 
 static void		num_shortest_paths_extend(float *steps, t_paths **path, int *i)

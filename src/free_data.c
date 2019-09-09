@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/21 16:11:38 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 19:39:11 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 20:25:38 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ void	free_adjacent_list(t_adjvertex *list)
 	while (head)
 	{
 		temp = head->next;
-		// if (head->prev)
-		// {
-		// 	//free(head->prev);
-		// 	head->prev = NULL;
-		// }
 		free(head);
 		head = temp;
 	}

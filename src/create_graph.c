@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/19 13:49:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 19:10:16 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 20:43:49 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ bool		end_start_comment(char **line, t_graph *g)
 	}
 	if (!start_end_comment)
 		return (0);
-	ft_strdel(line);
-	get_next_line(0, line);
-	ft_print(*line);
+	line = end_start_helper(line);
 	name = get_vertex_name(line, g);
 	if (start_end_comment == 's')
 	{
@@ -96,7 +94,7 @@ char		*add_vertexes(t_graph *graph)
 {
 	char			*line;
 	char			*vertex_name;
-	short static	start_end;
+	static short	start_end;
 
 	get_next_line(0, &line);
 	while (read_vertexes(line))
@@ -127,7 +125,7 @@ bool		create_graph(t_graph *graph)
 	graph->n_ants = get_ants_amount();
 	first_conection = add_vertexes(graph);
 	set_connections(graph, first_conection);
-	// if (!graph->top_vertex->adj_vertexes || !graph->end_vertex->adj_vertexes)
-	// 	error_generated(8, graph);
+	if (!graph->top_vertex->adj_vertexes || !graph->end_vertex->adj_vertexes)
+		error_generated(8, graph);
 	return (true);
 }
