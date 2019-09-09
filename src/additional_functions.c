@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/05 15:12:33 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 20:36:52 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 20:54:45 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ static void		num_shortest_paths_extend(float *steps, t_paths **path, int *i)
 	*i += 1;
 }
 
-short			num_shortest_paths(t_paths *all_paths,
-		int ants_amount, int paths_amount)
+short			num_shortest_paths(t_paths *all_paths, int ants_amount)
 {
 	t_paths	*path;
 	float	pre_steps;
@@ -73,6 +72,7 @@ short			num_shortest_paths(t_paths *all_paths,
 	int		j;
 
 	j = 2;
+	path = all_paths;
 	pre_steps = all_paths->length + ants_amount;
 	while (path && j < get_paths_amount(all_paths))
 	{

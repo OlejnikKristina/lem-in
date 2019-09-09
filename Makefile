@@ -6,7 +6,7 @@
 #    By: krioliin <krioliin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/18 20:29:00 by krioliin       #+#    #+#                 #
-#    Updated: 2019/09/09 20:44:46 by krioliin      ########   odam.nl          #
+#    Updated: 2019/09/09 20:50:01 by krioliin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,14 @@ all: $(NAME)
 
 $(NAME):
 	@make -C ft_printf/
-	@clang -o $(NAME) $(addprefix src/, $(SRC)) -I includes/ $(LIB) \
+	@clang -o $(NAME) $(FLAGS) $(addprefix src/, $(SRC)) \
+	-I includes/ $(LIB) \
 	-I ft_printf/includes/ -I ft_printf/libft/includes/ -g
 	@echo "\033[0;32mLem-in successfully created\033[0m"
 lemin:
 	@rm -f $(NAME)
-	@clang -o $(NAME) -g $(addprefix src/, $(SRC)) -I includes/ $(LIB) \
+	@clang -o $(NAME) $(FLAGS) -g $(addprefix src/, $(SRC)) \
+	-I includes/ $(LIB) \
 	-I ft_printf/includes/ -I ft_printf/libft/includes/
 	@echo "\033[0;32mLem-in successfully created\033[0m"
 clean:

@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/05 14:23:29 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 20:42:42 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 20:52:44 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static void	give_ants_to_paths(t_paths *all_paths, int n_paths,
 
 void		distribute_ants(t_paths *all_paths, int ants_amount, short n_paths)
 {
-	t_paths		*path;
 	short		ants_left;
 	int			total_paths_len;
 	int			x;

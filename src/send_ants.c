@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/30 16:45:57 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 20:43:16 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 20:54:08 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	put_ant_in_next_room(int next_room[10], int current_room[10])
 	current_room[i - 1] = 0;
 }
 
-bool	move_ant_to_next_room(t_adjvertex *room, t_paths *path,
-		int total_ants, char *end_room)
+bool	move_ant_to_next_room(t_adjvertex *room, int total_ants,
+		char *end_room)
 {
 	if (room->prev)
 	{
@@ -77,7 +77,7 @@ bool	check_path(t_paths *path, int *prev_ant_name, int total_ants,
 	while (room->next)
 	{
 		if (room->vertex->ants[0])
-			if (move_ant_to_next_room(room, path, total_ants, end_room))
+			if (move_ant_to_next_room(room, total_ants, end_room))
 				return (true);
 		room = room->next;
 	}
@@ -94,7 +94,7 @@ void	send_ants(t_paths *paths, t_graph *graph)
 	count_lines = 2;
 	path = paths;
 	distribute_ants(paths, graph->n_ants,
-	num_shortest_paths(paths, graph->n_ants, get_paths_amount(paths)));
+	num_shortest_paths(paths, graph->n_ants));
 	add_end_room(paths, graph->end_vertex);
 	ants_arrived = send_first_ant(paths, &previous_ant,
 	graph->n_ants, graph->end_vertex->name);

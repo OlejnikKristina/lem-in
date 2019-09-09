@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/18 18:43:54 by krioliin       #+#    #+#                */
-/*   Updated: 2019/09/09 20:37:03 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/09/09 20:53:40 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ void					free_graph(t_graph *graph);
 void					bfs(t_graph *graph, t_paths	*paths);
 void					restore_path(t_graph *graph, t_vertex *vertex,
 						t_paths *paths);
-short					num_shortest_paths(t_paths *all_paths, int ants_amount,
-						int paths_amount);
+short					num_shortest_paths(t_paths *all_paths, int ants_amount);
 int						get_ants_amount();
 int						chenge_of_aspect(t_vertex *to_add, t_vertex *father,
 						int size, t_graph *graph);
